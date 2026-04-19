@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="py-10 bg-slate-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row justify-between items-center mb-8 gap-4 page-header opacity-0">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-800">All Reported Issues / புகார்கள்</h1>
+                <p class="text-slate-500 mt-1">Browse, filter, and track problems in your community.</p>
+            </div>
+            
+            <form method="GET" class="flex flex-wrap gap-3 glass p-2 rounded-xl border border-slate-200">
+                <select name="category" class="bg-white border border-slate-300 text-slate-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 outline-none">
+                    <option value="">All Categories / அனைத்தும்</option>
+                    <option value="Garbage" {% if request.GET.category == 'Garbage' %}selected{% endif %}>Garbage (குப்பை)</option>
+                    <option value="Road" {% if request.GET.category == 'Road' %}selected{% endif %}>Road Damage (சாலை)</option>
+                    <option value="Water" {% if request.GET.category == 'Water' %}selected{% endif %}>Water (தண்ணீர்)</option>
+                    <option value="Street_Light" {% if request.GET.category == 'Street_Light' %}selected{% endif %}>Street Light (விளக்கு)</option>
+                    <option value="Others" {% if request.GET.category == 'Others' %}selected{% endif %}>Others (மற்றவை)</option>
+                </select>
+                
+                <select name="status" class="bg-white border border-slate-300 text-slate-700 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2 outline-none">
+                    <option value="">All Status / அனைத்தும்</option>
+                    <option value="Pending" {% if request.GET.status == 'Pending' %}selected{% endif %}>Pending (நிலுவையில்)</option>
+                    <option value="In Progress" {% if request.GET.status == 'In Progress' %}selected{% endif %}>In Progress (செயல்பாட்டில்)</option>
+                    <option value="Resolved" {% if request.GET.status == 'Resolved' %}selected{% endif %}>Resolved (தீர்வு)</option>
+                </select>
+                
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Filter</button>
+                <a href="{% url 'issues_list' %}" class="bg-slate-200 text-slate-700 px-4 py-2 rounded-lg hover:bg-slate-300 transition">Reset</a>
+            </form>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for issue in issues %}
+            <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-100 hover:shadow-xl transition duration-300 transform hover:-translate-y-2 issue-card opacity-0">
+                <div class="relative h-48 overflow-hidden bg-slate-200">
+                    {% if issue.image %}
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="w-full h-full object-cover">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-slate-400">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-bold text-slate-800 shadow-sm">
+                        {{ issue.category }}
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs text-slate-500">{{ issue.created_at|date:"M d, Y" }}</span>
+                        <!-- Status Badge -->
+                        {% if 'Pending' in issue.status %}
+                            <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-semibold border border-red-200">Pending</span>
+                        {% elif 'In Progress' in issue.status %}
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold border border-yellow-200">In Progress</span>
+                        {% else %}
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold border border-green-200">Resolved</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 line-clamp-1">{{ issue.title }}</h3>
+                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">{{ issue.description }}</p>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-xs text-slate-400">By {{ issue.user.username }}</span>
+                        <a href="{% url 'issue_detail' issue.pk %}" class="text-blue-600 font-semibold hover:text-blue-800 text-sm">View Details &rarr;</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-white rounded-2xl border border-slate-200">
+                <svg class="mx-auto h-16 w-16 text-slate-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <h3 class="text-lg font-medium text-slate-900">No issues found</h3>
+                <p class="mt-1 text-slate-500">Try adjusting your filters or check back later.</p>
+                <a href="{% url 'report_issue' %}" class="mt-6 inline-block bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">Report an Issue</a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.to(".page-header", {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out"
+        });
+
+        gsap.to(".issue-card", {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.5)",
+            delay: 0.3
+        });
+    });
+</script>
+{% endblock %}

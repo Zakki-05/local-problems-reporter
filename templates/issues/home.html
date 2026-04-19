@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load static %}
+<!-- Hero Section -->
+<div class="w-full bg-slate-50 flex flex-col items-center shadow-md border-b border-slate-200">
+    <!-- Image replaces the 3D Canvas -->
+    <img src="{% static 'images/home-image.png' %}" alt="Pernambut Civic Issue Reporter" class="w-full h-auto block m-0 p-0">
+    
+    <!-- Action Buttons -->
+    <div class="w-full max-w-5xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-6 px-4 py-10 z-10 hero-buttons">
+        <a href="{% url 'report_issue' %}" class="w-full sm:w-auto px-10 py-4 text-center bg-green-600 hover:bg-green-700 text-white rounded-full font-bold text-lg shadow-[0_4px_20px_rgba(22,163,74,0.4)] transition transform hover:scale-105">
+            Report an Issue / புகாரளிக்க
+        </a>
+        <a href="{% url 'map_view' %}" class="w-full sm:w-auto px-10 py-4 text-center bg-white text-slate-800 border-2 border-slate-200 hover:border-slate-300 hover:bg-slate-50 rounded-full font-bold text-lg transition shadow-md transform hover:scale-105">
+            View Interactive Map
+        </a>
+    </div>
+</div>
+
+<!-- Recent Issues Section -->
+<div class="py-20 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16 section-header">
+            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Recent Complaints /சமீபத்திய புகார்கள்</h2>
+            <div class="w-24 h-1 bg-green-500 mx-auto mt-4 rounded-full"></div>
+            <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Latest issues reported by citizens in Pernambut area.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for issue in recent_issues %}
+            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 issue-card group">
+                <div class="relative h-48 overflow-hidden bg-slate-200">
+                    {% if issue.image %}
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-slate-400">
+                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    {% endif %}
+                    <div class="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-bold text-slate-800 shadow-sm">
+                        {{ issue.category }}
+                    </div>
+                </div>
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-3">
+                        <span class="text-xs text-slate-500">{{ issue.created_at|date:"M d, Y" }}</span>
+                        <!-- Status Badge -->
+                        {% if issue.status == 'Pending' %}
+                            <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-semibold">Pending</span>
+                        {% elif issue.status == 'In Progress' %}
+                            <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">In Progress</span>
+                        {% else %}
+                            <span class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Resolved</span>
+                        {% endif %}
+                    </div>
+                    <h3 class="text-xl font-bold mb-2 text-slate-800 line-clamp-1">{{ issue.title }}</h3>
+                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">{{ issue.description }}</p>
+                    <a href="{% url 'issue_detail' issue.pk %}" class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group-hover:underline">
+                        View Details 
+                        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-10 text-slate-500">
+                <p>No issues reported yet. Be the first to make a positive change!</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-12">
+            <a href="{% url 'issues_list' %}" class="inline-block px-6 py-3 border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 rounded-full font-bold transition">View All Reports</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // GSAP Animations
+    document.addEventListener("DOMContentLoaded", (event) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        gsap.from(".section-header", {
+            scrollTrigger: {
+                trigger: ".section-header",
+                start: "top 80%"
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8
+        });
+
+        gsap.from(".issue-card", {
+            scrollTrigger: {
+                trigger: ".issue-card",
+                start: "top 85%"
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.6,
+            stagger: 0.1,
+            ease: "back.out(1.7)"
+        });
+    });
+</script>
+{% endblock %}

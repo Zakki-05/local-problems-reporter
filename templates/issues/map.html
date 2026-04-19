@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="h-[calc(100vh-64px)] w-full relative">
+    <div id="map" class="w-full h-full z-0"></div>
+    
+    <div class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur p-4 rounded-xl shadow-lg border border-slate-200 map-legend translate-y-[-20px] opacity-0">
+        <h3 class="font-bold text-slate-800 mb-2">Issue Status</h3>
+        <ul class="space-y-2 text-sm">
+            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-red-500 mr-2 border border-white shadow-sm"></span> Pending (நிலுவையில்)</li>
+            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-yellow-500 mr-2 border border-white shadow-sm"></span> In Progress (செயல்பாட்டில்)</li>
+            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-green-500 mr-2 border border-white shadow-sm"></span> Resolved (தீர்வு)</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.to(".map-legend", {
+            y: 0,
+            opacity: 1,
+            duration: 0.5,
+            delay: 0.5
+        });
+
+        // Setup Map
+        const map = L.map('map').setView([12.9467, 78.7183], 15); // Pernambut focus
+        
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20
+        }).addTo(map);
+
+        // Custom markers logic
+        const getMarkerColor = (status) => {
+            if (status.includes('Pending')) return '#ef4444'; // Red
+            if (status.includes('In Progress')) return '#eab308'; // Yellow
+            return '#22c55e'; // Green
+        };
+
+        const createCustomIcon = (color) => {
+            return L.divIcon({
+                className: 'custom-div-icon',
+                html: `<div style="background-color:${color}; width:20px; height:20px; border-radius:50%; border:2px solid white; box-shadow: 0 0 10px rgba(0,0,0,0.3);"></div>`,
+                iconSize: [20, 20],
+                iconAnchor: [10, 10]
+            });
+        };
+
+        // Fetch Data
+        fetch('/api/map-data/')
+            .then(res => res.json())
+            .then(data => {
+                if(data.length > 0) {
+                    const bounds = [];
+                    data.forEach(issue => {
+                        const icon = createCustomIcon(getMarkerColor(issue.status));
+                        const marker = L.marker([issue.lat, issue.lng], {icon: icon}).addTo(map);
+                        
+                        const popupContent = `
+                            <div class="p-2 min-w-[200px]">
+                                <h4 class="font-bold text-lg mb-1">${issue.title}</h4>
+                                <div class="text-xs mb-2">
+                                    <span class="bg-gray-100 px-2 py-1 rounded inline-block mr-1 mb-1">${issue.category}</span>
+                                    <span class="font-semibold" style="color: ${getMarkerColor(issue.status)}">${issue.status}</span>
+                                </div>
+                                <a href="${issue.url}" class="text-blue-600 hover:text-blue-800 text-sm font-medium mt-2 inline-block">View Details &rarr;</a>
+                            </div>
+                        `;
+                        marker.bindPopup(popupContent);
+                        bounds.push([issue.lat, issue.lng]);
+                    });
+                    
+                    // Fit bounds if markers exist
+                    if(bounds.length > 0) {
+                        map.fitBounds(bounds, {padding: [50, 50]});
+                    }
+                } else {
+                    // Try to locate user if no issues
+                    map.locate({setView: true, maxZoom: 13});
+                }
+            })
+            .catch(err => console.error("Error loading map data:", err));
+    });
+</script>
+{% endblock %}

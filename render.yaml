@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: pernambut-civic-reporter
+    env: python
+    buildCommand: ./build.sh
+    startCommand: gunicorn core.wsgi:application
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: DJANGO_SETTINGS_MODULE
+        value: core.settings
+      - key: DEBUG
+        value: "False"
+      - key: DATABASE_URL
+        fromDatabase:
+          name: pernambut-db
+          property: connectionString
+    autoDeploy: true
+
+databases:
+  - name: pernambut-db
+    plan: free
