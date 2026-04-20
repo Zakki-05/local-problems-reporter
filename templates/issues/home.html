@@ -30,9 +30,9 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for issue in recent_issues %}
             <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 issue-card group">
-                <div class="relative h-48 overflow-hidden bg-slate-200">
+                <div class="relative h-40 overflow-hidden bg-slate-200">
                     {% if issue.image %}
-                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition duration-500">
                     {% else %}
                     <div class="w-full h-full flex items-center justify-center text-slate-400">
                         <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
@@ -79,30 +79,6 @@
 {% block extra_js %}
 <script>
     // GSAP Animations
-    document.addEventListener("DOMContentLoaded", (event) => {
-        gsap.registerPlugin(ScrollTrigger);
-
-        gsap.from(".section-header", {
-            scrollTrigger: {
-                trigger: ".section-header",
-                start: "top 80%"
-            },
-            y: 30,
-            opacity: 0,
-            duration: 0.8
-        });
-
-        gsap.from(".issue-card", {
-            scrollTrigger: {
-                trigger: ".issue-card",
-                start: "top 85%"
-            },
-            y: 50,
-            opacity: 0,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "back.out(1.7)"
-        });
-    });
+    // GSAP removed for maximum site performance and scroll reliability.
 </script>
 {% endblock %}
