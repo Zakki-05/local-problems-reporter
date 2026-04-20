@@ -65,9 +65,10 @@
                 </div>
             </div>
         </div>
+    </nav>
 
-        <!-- Slide-out Menu Overlay -->
-        <div id="mobile-menu-backdrop" class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <!-- Slide-out Menu Overlay -->
+    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
         <!-- Slide-out Sidebar -->
         <div id="mobile-menu-panel" class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
@@ -126,7 +127,6 @@
             </nav>
             <div class="p-4 bg-slate-50 text-center text-[10px] text-slate-400">Pernambut Municipal Council &copy; 2024</div>
         </div>
-    </nav>
 
     <main class="flex-grow pt-16">
         {% block content %}{% endblock %}
