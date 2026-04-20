@@ -3,7 +3,7 @@
 {% block content %}
 <div class="py-12 bg-slate-50 min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden report-container opacity-0 translate-y-10">
+        <div class="bg-white rounded-3xl shadow-xl overflow-hidden report-container">
             <div class="bg-blue-600 p-8 text-white relative overflow-hidden">
                 <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-500 rounded-full blur-3xl opacity-50"></div>
                 <h2 class="text-3xl font-bold relative z-10">Report an Issue</h2>
@@ -80,13 +80,7 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // Animation
-        gsap.to(".report-container", {
-            y: 0,
-            opacity: 1,
-            duration: 0.8,
-            ease: "power3.out"
-        });
+        // GSAP removed for better mobile performance. Container now displays seamlessly natively.
 
         // Initialize Map for Pernambut
         const defaultLat = 12.9467; // Pernambut
