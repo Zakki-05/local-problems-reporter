@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{% static 'images/fave-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/fave-icon.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/fave-icon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/fave-icon.png' %}">
     
     <!-- Custom Separate CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
@@ -53,39 +55,76 @@
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-blue-600 focus:outline-none p-2">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path id="menu-icon-path" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                    <button id="mobile-menu-btn" class="relative p-2 text-blue-900 focus:outline-none z-50 group hover:bg-blue-50 rounded-lg transition-colors">
+                        <div class="w-6 flex flex-col items-end gap-1.5 transition-all">
+                            <span class="w-full h-[2px] bg-current transform transition duration-300 origin-right" id="bar1"></span>
+                            <span class="w-full h-[2px] bg-current transition duration-300" id="bar2"></span>
+                            <span class="w-3/4 h-[2px] bg-current transform transition duration-300 origin-right group-hover:w-full" id="bar3"></span>
+                        </div>
                     </button>
                 </div>
             </div>
         </div>
 
-        <!-- Mobile Menu Overlay -->
-        <div id="mobile-menu" class="fixed inset-0 bg-blue-900/95 backdrop-blur-xl z-[60] flex flex-col items-center justify-center space-y-8 text-white opacity-0 pointer-events-none transition-transform duration-500">
-            <button id="close-menu-btn" class="absolute top-6 right-6 text-white p-2">
-                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-            <div class="text-center font-bold text-blue-300 text-sm tracking-widest uppercase mb-4">PGC Navigation</div>
-            <a href="{% url 'home' %}" class="mobile-link text-3xl font-bold hover:text-blue-400 transition">Home / முகப்பு</a>
-            <a href="{% url 'map_view' %}" class="mobile-link text-3xl font-bold hover:text-blue-400 transition">Live Map / வரைபடம்</a>
-            <a href="{% url 'issues_list' %}" class="mobile-link text-3xl font-bold hover:text-blue-400 transition">Browse Issues / புகார்கள்</a>
-            
-            {% if user.is_authenticated %}
-                <a href="{% url 'report_issue' %}" class="mobile-link text-3xl font-bold text-green-400">Report Issue / புகாரளிக்க</a>
-                <a href="{% url 'dashboard' %}" class="mobile-link text-3xl font-bold hover:text-blue-400 transition">Dashboard / கணக்கு</a>
-                {% if user.is_staff %}
-                    <a href="{% url 'official_dashboard' %}" class="mobile-link text-2xl font-bold text-yellow-400">Official Panel / அதிகாரி தளம்</a>
+        <!-- Slide-out Menu Overlay -->
+        <div id="mobile-menu-backdrop" class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+
+        <!-- Slide-out Sidebar -->
+        <div id="mobile-menu-panel" class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-6 border-b border-gray-100">
+                <span class="text-blue-800 font-bold text-lg">PGC Menu</span>
+                <button id="close-menu-btn" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 overflow-y-auto py-4 px-6 space-y-2 flex flex-col">
+                <a href="{% url 'home' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                    Home <span class="text-xs text-slate-400">முகப்பு</span>
+                </a>
+                <a href="{% url 'map_view' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                    Live Map <span class="text-xs text-slate-400">வரைபடம்</span>
+                </a>
+                <a href="{% url 'issues_list' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                    Browse Issues <span class="text-xs text-slate-400">புகார்கள்</span>
+                </a>
+                
+                <hr class="my-4 border-gray-100">
+                
+                {% if user.is_authenticated %}
+                    <a href="{% url 'dashboard' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-green-50 hover:text-green-600 transition flex justify-between items-center">
+                        Dashboard <span class="text-xs text-slate-400">கணக்கு</span>
+                    </a>
+                    {% if user.is_staff %}
+                        <a href="{% url 'official_dashboard' %}" class="py-3 px-4 rounded-xl text-blue-800 font-bold bg-blue-50 hover:bg-blue-100 transition flex justify-between items-center">
+                            Official Panel <span class="text-xs text-blue-400 text-right">அதிகாரி தளம்</span>
+                        </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'report_issue' %}" class="mt-2 py-3 px-4 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md transition flex flex-col justify-center items-center">
+                        <span>Report Issue</span>
+                        <span class="text-[10px] opacity-80">புகாரளிக்க</span>
+                    </a>
+                    
+                    <form method="post" action="{% url 'logout' %}" class="mt-auto pt-6">
+                        {% csrf_token %}
+                        <button type="submit" class="w-full py-3 px-4 rounded-xl border border-red-200 text-red-500 font-medium hover:bg-red-50 transition flex justify-center items-center gap-2">
+                            Logout <span class="text-xs">வெளியேறு</span>
+                        </button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                        Login <span class="text-xs text-slate-400">உள்நுழை</span>
+                    </a>
+                    <a href="{% url 'register' %}" class="mt-2 py-3 px-4 rounded-xl bg-blue-900 text-white font-medium hover:bg-blue-800 shadow-md transition flex flex-col justify-center items-center">
+                        <span>Register</span>
+                        <span class="text-[10px] opacity-80">பதிவு செய்க</span>
+                    </a>
                 {% endif %}
-                <form method="post" action="{% url 'logout' %}" class="mobile-link mt-8">
-                    {% csrf_token %}
-                    <button type="submit" class="text-xl text-red-400 font-bold border-2 border-red-400 px-8 py-2 rounded-full">Logout / வெளியேறு</button>
-                </form>
-            {% else %}
-                <a href="{% url 'login' %}" class="mobile-link text-3xl font-bold hover:text-blue-400 transition">Login / உள்நுழை</a>
-                <a href="{% url 'register' %}" class="mobile-link text-3xl font-bold bg-white text-blue-900 px-10 py-2 rounded-full shadow-[0_0_20px_rgba(255,255,255,0.4)]">Register / பதிவு செய்க</a>
-            {% endif %}
-            
-            <div class="absolute bottom-10 text-blue-300/50 text-xs">Pernambut Municipal Council &copy; 2024</div>
+            </nav>
+            <div class="p-4 bg-slate-50 text-center text-[10px] text-slate-400">Pernambut Municipal Council &copy; 2024</div>
         </div>
     </nav>
 
@@ -111,52 +150,50 @@
         </div>
     </footer>
 
-    <!-- GSAP for Animations -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    
+    <!-- Clean Vanilla JS Toggle Script for Mobile Sidebar -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const closeMenuBtn = document.getElementById('close-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const mobileLinks = document.querySelectorAll('.mobile-link');
-
-            // Force initial off-screen state in JS for absolute reliability
-            gsap.set(mobileMenu, { x: '100%', opacity: 0 });
-
-            const tl = gsap.timeline({ paused: true });
-
-            tl.to(mobileMenu, {
-                x: '0%',
-                opacity: 1,
-                duration: 0.5,
-                pointerEvents: 'auto',
-                ease: 'expo.out'
-            });
-
-            tl.from(mobileLinks, {
-                y: 30,
-                opacity: 0,
-                duration: 0.4,
-                stagger: 0.08,
-                ease: 'back.out(1.7)'
-            }, "-=0.2");
-
-            mobileMenuBtn.addEventListener('click', () => {
-                tl.restart();
-            });
-
-            closeMenuBtn.addEventListener('click', () => {
-                tl.reverse();
-            });
+            const btn = document.getElementById('mobile-menu-btn');
+            const closeBtn = document.getElementById('close-menu-btn');
+            const backdrop = document.getElementById('mobile-menu-backdrop');
+            const panel = document.getElementById('mobile-menu-panel');
             
-            // Close menu when a link is clicked
-            mobileLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    tl.reverse();
-                });
-            });
+            // Hamburger bars
+            const bar1 = document.getElementById('bar1');
+            const bar2 = document.getElementById('bar2');
+            const bar3 = document.getElementById('bar3');
+
+            function toggleMenu() {
+                const isOpen = !panel.classList.contains('translate-x-full');
+                
+                if (isOpen) {
+                    // Close
+                    panel.classList.add('translate-x-full');
+                    backdrop.classList.add('opacity-0', 'pointer-events-none');
+                    backdrop.classList.remove('opacity-100');
+                    
+                    // Reset Bars
+                    if(bar1) bar1.classList.remove('-rotate-45', 'w-[26px]');
+                    if(bar2) bar2.classList.remove('opacity-0', 'translate-x-4');
+                    if(bar3) bar3.classList.remove('rotate-45', 'w-[26px]');
+                    document.body.style.overflow = ''; // Restore scroll
+                } else {
+                    // Open
+                    panel.classList.remove('translate-x-full');
+                    backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                    backdrop.classList.add('opacity-100');
+                    
+                    // Animate to X shape natively via Tailwind classes
+                    if(bar1) bar1.classList.add('-rotate-45', 'w-[26px]');
+                    if(bar2) bar2.classList.add('opacity-0', 'translate-x-4');
+                    if(bar3) bar3.classList.add('rotate-45', 'w-[26px]');
+                    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                }
+            }
+
+            if(btn) btn.addEventListener('click', toggleMenu);
+            if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
+            if(backdrop) backdrop.addEventListener('click', toggleMenu); // Click outside to close
         });
     </script>
     {% block extra_js %}{% endblock %}
