@@ -1,23 +1,25 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pernambut Civic Issue Reporter</title>
+    <title>Pernambut Civic Issue Reporter</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="{% static 'images/fave-icon.png' %}">
     <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/fave-icon.png' %}">
     <link rel="apple-touch-icon" sizes="180x180" href="{% static 'images/fave-icon.png' %}">
-    
+
     <!-- Custom Separate CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
+
 <body class="flex flex-col min-h-screen text-slate-800">
 
     <nav class="glass fixed w-full z-50 top-0 left-0 transition-all duration-300">
@@ -26,40 +28,57 @@
                 <div class="flex">
                     <div class="flex flex-col justify-center">
                         <div class="flex items-center text-xl font-bold text-blue-800 tracking-tight">
-                            <img src="{% static 'images/fave-icon.png' %}" alt="PGC Logo" class="w-10 h-10 mr-2 object-contain">
+                            <img src="{% static 'images/fave-icon.png' %}" alt="PGC Logo"
+                                class="w-10 h-10 mr-2 object-contain">
                             PGC / குறைதீர் மையம்
                         </div>
-                        <span class="text-[10px] uppercase text-blue-600 font-bold ml-8 leading-none">Pernambut Grievance Cell</span>
+                        <span class="text-[10px] uppercase text-blue-600 font-bold ml-8 leading-none">Pernambut
+                            Grievance Cell</span>
                     </div>
                 </div>
                 <div class="hidden md:flex space-x-8 items-center">
-                    <a href="{% url 'home' %}" class="text-slate-600 hover:text-blue-600 font-medium transition">Home</a>
-                    <a href="{% url 'map_view' %}" class="text-slate-600 hover:text-blue-600 font-medium transition">Live Map</a>
-                    <a href="{% url 'issues_list' %}" class="text-slate-600 hover:text-blue-600 font-medium transition">Browse Issues</a>
-                    
+                    <a href="{% url 'home' %}"
+                        class="text-slate-600 hover:text-blue-600 font-medium transition">Home</a>
+                    <a href="{% url 'map_view' %}"
+                        class="text-slate-600 hover:text-blue-600 font-medium transition">Live Map</a>
+                    <a href="{% url 'issues_list' %}"
+                        class="text-slate-600 hover:text-blue-600 font-medium transition">Browse Issues</a>
+
                     {% if user.is_authenticated %}
-                        <a href="{% url 'report_issue' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5">Report Issue</a>
-                        <a href="{% url 'dashboard' %}" class="text-slate-600 hover:text-green-600 font-medium transition">Dashboard</a>
-                        {% if user.is_staff %}
-                             <a href="{% url 'official_dashboard' %}" class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5">Official Panel / அதிகாரி தளம்</a>
-                        {% endif %}
-                        <form method="post" action="{% url 'logout' %}" class="inline">
-                            {% csrf_token %}
-                            <button type="submit" class="text-red-500 hover:text-red-700 font-medium transition">Logout</button>
-                        </form>
+                    <a href="{% url 'report_issue' %}"
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5">Report
+                        Issue</a>
+                    <a href="{% url 'dashboard' %}"
+                        class="text-slate-600 hover:text-green-600 font-medium transition">Dashboard</a>
+                    {% if user.is_staff %}
+                    <a href="{% url 'official_dashboard' %}"
+                        class="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-medium transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5">Official
+                        Panel / அதிகாரி தளம்</a>
+                    {% endif %}
+                    <form method="post" action="{% url 'logout' %}" class="inline">
+                        {% csrf_token %}
+                        <button type="submit"
+                            class="text-red-500 hover:text-red-700 font-medium transition">Logout</button>
+                    </form>
                     {% else %}
-                        <a href="{% url 'login' %}" class="text-slate-600 hover:text-blue-600 font-medium transition">Login</a>
-                        <a href="{% url 'register' %}" class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-full font-medium transition shadow-lg shadow-slate-900/30 transform hover:-translate-y-0.5">Register</a>
+                    <a href="{% url 'login' %}"
+                        class="text-slate-600 hover:text-blue-600 font-medium transition">Login</a>
+                    <a href="{% url 'register' %}"
+                        class="bg-slate-800 hover:bg-slate-900 text-white px-4 py-2 rounded-full font-medium transition shadow-lg shadow-slate-900/30 transform hover:-translate-y-0.5">Register</a>
                     {% endif %}
                 </div>
 
                 <!-- Mobile Menu Button -->
                 <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="relative p-2 text-blue-900 focus:outline-none z-50 group hover:bg-blue-50 rounded-lg transition-colors">
+                    <button id="mobile-menu-btn"
+                        class="relative p-2 text-blue-900 focus:outline-none z-50 group hover:bg-blue-50 rounded-lg transition-colors">
                         <div class="w-6 flex flex-col items-end gap-1.5 transition-all">
-                            <span class="w-full h-[2px] bg-current transform transition duration-300 origin-right" id="bar1"></span>
+                            <span class="w-full h-[2px] bg-current transform transition duration-300 origin-right"
+                                id="bar1"></span>
                             <span class="w-full h-[2px] bg-current transition duration-300" id="bar2"></span>
-                            <span class="w-3/4 h-[2px] bg-current transform transition duration-300 origin-right group-hover:w-full" id="bar3"></span>
+                            <span
+                                class="w-3/4 h-[2px] bg-current transform transition duration-300 origin-right group-hover:w-full"
+                                id="bar3"></span>
                         </div>
                     </button>
                 </div>
@@ -68,84 +87,119 @@
     </nav>
 
     <!-- Slide-out Menu Overlay -->
-    <div id="mobile-menu-backdrop" class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300"></div>
+    <div id="mobile-menu-backdrop"
+        class="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-[55] opacity-0 pointer-events-none transition-opacity duration-300">
+    </div>
 
-        <!-- Slide-out Sidebar -->
-        <div id="mobile-menu-panel" class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
-            <!-- Header -->
-            <div class="flex items-center justify-between p-6 border-b border-gray-100">
-                <span class="text-blue-800 font-bold text-lg">PGC Menu</span>
-                <button id="close-menu-btn" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                </button>
-            </div>
-
-            <!-- Navigation Links -->
-            <nav class="flex-1 overflow-y-auto py-4 px-6 space-y-2 flex flex-col">
-                <a href="{% url 'home' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
-                    Home <span class="text-xs text-slate-400">முகப்பு</span>
-                </a>
-                <a href="{% url 'map_view' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
-                    Live Map <span class="text-xs text-slate-400">வரைபடம்</span>
-                </a>
-                <a href="{% url 'issues_list' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
-                    Browse Issues <span class="text-xs text-slate-400">புகார்கள்</span>
-                </a>
-                
-                <hr class="my-4 border-gray-100">
-                
-                {% if user.is_authenticated %}
-                    <a href="{% url 'dashboard' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-green-50 hover:text-green-600 transition flex justify-between items-center">
-                        Dashboard <span class="text-xs text-slate-400">கணக்கு</span>
-                    </a>
-                    {% if user.is_staff %}
-                        <a href="{% url 'official_dashboard' %}" class="py-3 px-4 rounded-xl text-blue-800 font-bold bg-blue-50 hover:bg-blue-100 transition flex justify-between items-center">
-                            Official Panel <span class="text-xs text-blue-400 text-right">அதிகாரி தளம்</span>
-                        </a>
-                    {% endif %}
-                    
-                    <a href="{% url 'report_issue' %}" class="mt-2 py-3 px-4 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md transition flex flex-col justify-center items-center">
-                        <span>Report Issue</span>
-                        <span class="text-[10px] opacity-80">புகாரளிக்க</span>
-                    </a>
-                    
-                    <form method="post" action="{% url 'logout' %}" class="mt-auto pt-6">
-                        {% csrf_token %}
-                        <button type="submit" class="w-full py-3 px-4 rounded-xl border border-red-200 text-red-500 font-medium hover:bg-red-50 transition flex justify-center items-center gap-2">
-                            Logout <span class="text-xs">வெளியேறு</span>
-                        </button>
-                    </form>
-                {% else %}
-                    <a href="{% url 'login' %}" class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
-                        Login <span class="text-xs text-slate-400">உள்நுழை</span>
-                    </a>
-                    <a href="{% url 'register' %}" class="mt-2 py-3 px-4 rounded-xl bg-blue-900 text-white font-medium hover:bg-blue-800 shadow-md transition flex flex-col justify-center items-center">
-                        <span>Register</span>
-                        <span class="text-[10px] opacity-80">பதிவு செய்க</span>
-                    </a>
-                {% endif %}
-            </nav>
-            <div class="p-4 bg-slate-50 text-center text-[10px] text-slate-400">Pernambut Municipal Council &copy; 2024</div>
+    <!-- Slide-out Sidebar -->
+    <div id="mobile-menu-panel"
+        class="fixed top-0 right-0 h-full w-[280px] bg-white shadow-2xl z-[60] transform translate-x-full transition-transform duration-300 ease-out flex flex-col">
+        <!-- Header -->
+        <div class="flex items-center justify-between p-6 border-b border-gray-100">
+            <span class="text-blue-800 font-bold text-lg">PGC Menu</span>
+            <button id="close-menu-btn" class="p-2 text-gray-400 hover:text-red-500 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
         </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 overflow-y-auto py-4 px-6 space-y-2 flex flex-col">
+            <a href="{% url 'home' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                Home <span class="text-xs text-slate-400">முகப்பு</span>
+            </a>
+            <a href="{% url 'map_view' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                Live Map <span class="text-xs text-slate-400">வரைபடம்</span>
+            </a>
+            <a href="{% url 'issues_list' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                Browse Issues <span class="text-xs text-slate-400">புகார்கள்</span>
+            </a>
+
+            <hr class="my-4 border-gray-100">
+
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashboard' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-green-50 hover:text-green-600 transition flex justify-between items-center">
+                Dashboard <span class="text-xs text-slate-400">கணக்கு</span>
+            </a>
+            {% if user.is_staff %}
+            <a href="{% url 'official_dashboard' %}"
+                class="py-3 px-4 rounded-xl text-blue-800 font-bold bg-blue-50 hover:bg-blue-100 transition flex justify-between items-center">
+                Official Panel <span class="text-xs text-blue-400 text-right">அதிகாரி தளம்</span>
+            </a>
+            {% endif %}
+
+            <a href="{% url 'report_issue' %}"
+                class="mt-2 py-3 px-4 rounded-xl bg-blue-600 text-white font-medium hover:bg-blue-700 shadow-md transition flex flex-col justify-center items-center">
+                <span>Report Issue</span>
+                <span class="text-[10px] opacity-80">புகாரளிக்க</span>
+            </a>
+
+            <form method="post" action="{% url 'logout' %}" class="mt-auto pt-6">
+                {% csrf_token %}
+                <button type="submit"
+                    class="w-full py-3 px-4 rounded-xl border border-red-200 text-red-500 font-medium hover:bg-red-50 transition flex justify-center items-center gap-2">
+                    Logout <span class="text-xs">வெளியேறு</span>
+                </button>
+            </form>
+            {% else %}
+            <a href="{% url 'login' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                Login <span class="text-xs text-slate-400">உள்நுழை</span>
+            </a>
+            <a href="{% url 'register' %}"
+                class="mt-2 py-3 px-4 rounded-xl bg-blue-900 text-white font-medium hover:bg-blue-800 shadow-md transition flex flex-col justify-center items-center">
+                <span>Register</span>
+                <span class="text-[10px] opacity-80">பதிவு செய்க</span>
+            </a>
+            {% endif %}
+        </nav>
+        <div class="p-4 bg-slate-50 text-center text-[10px] text-slate-400">
+            <div class="mb-1">Pernambut Municipal Council &copy; 2024</div>
+            <div>Developed by <a href="https://codebyzakki.netlify.app/" target="_blank" rel="noopener noreferrer"
+                    class="text-blue-500 hover:text-blue-600 hover:underline font-medium font-bold">Mohammed Zakki Adnan
+                    P</a></div>
+        </div>
+    </div>
 
     <main class="flex-grow pt-16">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="bg-slate-900 text-slate-300 py-10 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
-            <div class="mb-4 md:mb-0">
-                <span class="text-xl font-bold text-white flex items-center">
-                    <img src="{% static 'images/fave-icon.png' %}" alt="Pernambut Logo" class="w-8 h-8 mr-2 object-contain">
-                    Pernambut Municipal Council
-                </span>
-                <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) / பேரணாம்பட்டு குறைதீர் மையம்:</strong> Official Smart Grievance Reporting System for Pernambut, Tamil Nadu.</p>
+    <footer class="bg-slate-900 text-slate-300 py-10 mt-auto border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center pb-8 border-b border-slate-800">
+                <div class="mb-4 md:mb-0">
+                    <span class="text-xl font-bold text-white flex items-center">
+                        <img src="{% static 'images/fave-icon.png' %}" alt="Pernambut Logo"
+                            class="w-8 h-8 mr-2 object-contain">
+                        Pernambut Municipal Council
+                    </span>
+                    <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) / பேரணாம்பட்டு
+                            குறைதீர் மையம்:</strong> Official Smart Grievance Reporting System for Pernambut, Tamil
+                        Nadu.</p>
+                </div>
+                <div class="flex space-x-6 mt-4 md:mt-0 font-medium tracking-wide">
+                    <a href="#" class="hover:text-white hover:text-blue-400 transition">About</a>
+                    <a href="{% url 'issues_list' %}" class="hover:text-white hover:text-blue-400 transition">Issues</a>
+                    <a href="{% url 'map_view' %}" class="hover:text-white hover:text-blue-400 transition">Map</a>
+                    <a href="/admin/" class="hover:text-white hover:text-blue-400 transition">Admin</a>
+                </div>
             </div>
-            <div class="flex space-x-6">
-                <a href="#" class="hover:text-white transition">About</a>
-                <a href="{% url 'issues_list' %}" class="hover:text-white transition">Issues</a>
-                <a href="{% url 'map_view' %}" class="hover:text-white transition">Map</a>
-                <a href="/admin/" class="hover:text-white transition">Admin</a>
+
+            <div class="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-slate-400">
+                <p>&copy; 2024 Pernambut Municipal Council. All rights reserved.</p>
+                <p class="mt-2 md:mt-0 flex items-center">
+                    <span>Designed & Developed by</span>
+                    <a href="https://codebyzakki.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="ml-1 text-blue-400 hover:text-blue-300 hover:underline font-bold transition">Zakki Adnan
+                        P</a>
+                </p>
             </div>
         </div>
     </footer>
@@ -157,7 +211,7 @@
             const closeBtn = document.getElementById('close-menu-btn');
             const backdrop = document.getElementById('mobile-menu-backdrop');
             const panel = document.getElementById('mobile-menu-panel');
-            
+
             // Hamburger bars
             const bar1 = document.getElementById('bar1');
             const bar2 = document.getElementById('bar2');
@@ -165,37 +219,38 @@
 
             function toggleMenu() {
                 const isOpen = !panel.classList.contains('translate-x-full');
-                
+
                 if (isOpen) {
                     // Close
                     panel.classList.add('translate-x-full');
                     backdrop.classList.add('opacity-0', 'pointer-events-none');
                     backdrop.classList.remove('opacity-100');
-                    
+
                     // Reset Bars
-                    if(bar1) bar1.classList.remove('-rotate-45', 'w-[26px]');
-                    if(bar2) bar2.classList.remove('opacity-0', 'translate-x-4');
-                    if(bar3) bar3.classList.remove('rotate-45', 'w-[26px]');
+                    if (bar1) bar1.classList.remove('-rotate-45', 'w-[26px]');
+                    if (bar2) bar2.classList.remove('opacity-0', 'translate-x-4');
+                    if (bar3) bar3.classList.remove('rotate-45', 'w-[26px]');
                     document.body.style.overflow = ''; // Restore scroll
                 } else {
                     // Open
                     panel.classList.remove('translate-x-full');
                     backdrop.classList.remove('opacity-0', 'pointer-events-none');
                     backdrop.classList.add('opacity-100');
-                    
+
                     // Animate to X shape natively via Tailwind classes
-                    if(bar1) bar1.classList.add('-rotate-45', 'w-[26px]');
-                    if(bar2) bar2.classList.add('opacity-0', 'translate-x-4');
-                    if(bar3) bar3.classList.add('rotate-45', 'w-[26px]');
+                    if (bar1) bar1.classList.add('-rotate-45', 'w-[26px]');
+                    if (bar2) bar2.classList.add('opacity-0', 'translate-x-4');
+                    if (bar3) bar3.classList.add('rotate-45', 'w-[26px]');
                     document.body.style.overflow = 'hidden'; // Prevent background scrolling
                 }
             }
 
-            if(btn) btn.addEventListener('click', toggleMenu);
-            if(closeBtn) closeBtn.addEventListener('click', toggleMenu);
-            if(backdrop) backdrop.addEventListener('click', toggleMenu); // Click outside to close
+            if (btn) btn.addEventListener('click', toggleMenu);
+            if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
+            if (backdrop) backdrop.addEventListener('click', toggleMenu); // Click outside to close
         });
     </script>
     {% block extra_js %}{% endblock %}
 </body>
+
 </html>
