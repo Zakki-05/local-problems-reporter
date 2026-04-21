@@ -88,8 +88,14 @@
         
         let map = L.map('map').setView([defaultLat, defaultLng], 14);
         
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '© OpenStreetMap contributors'
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
+            subdomains: 'abcd',
+            maxZoom: 20,
+            crossOrigin: true,
+            keepBuffer: 4,
+            updateWhenIdle: true,
+            updateWhenZooming: false
         }).addTo(map);
 
         let marker = L.marker([defaultLat, defaultLng], {draggable: true}).addTo(map);

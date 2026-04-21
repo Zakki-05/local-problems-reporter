@@ -27,7 +27,11 @@
         L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
             attribution: '&copy; OpenStreetMap contributors &copy; CARTO',
             subdomains: 'abcd',
-            maxZoom: 20
+            maxZoom: 20,
+            crossOrigin: true,
+            keepBuffer: 4,
+            updateWhenIdle: true,
+            updateWhenZooming: false
         }).addTo(map);
 
         // Custom markers logic

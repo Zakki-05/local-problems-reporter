@@ -5,9 +5,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Official Smart Grievance Reporting System for Pernambut, Tamil Nadu. Report and track local civic issues effortlessly.">
     <title>Pernambut Civic Issue Reporter</title>
+    <!-- Tailwind Play CDN for Local Development -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Compiled Tailwind CSS (Fallback/Production) -->
+    <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -18,9 +24,16 @@
 
     <!-- Custom Separate CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Toastify CSS -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    
+    <!-- AOS Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
 
 <body class="flex flex-col min-h-screen text-slate-800">
+    <!-- Navbar logic ... -->
 
     <nav class="glass fixed w-full z-50 top-0 left-0 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -246,6 +259,57 @@
             if (btn) btn.addEventListener('click', toggleMenu);
             if (closeBtn) closeBtn.addEventListener('click', toggleMenu);
             if (backdrop) backdrop.addEventListener('click', toggleMenu); // Click outside to close
+        });
+    </script>
+    <!-- Toastify JS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    
+    <!-- AOS Animation JS -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
+            });
+        });
+    </script>
+    <script>
+        // Custom form validation UI
+        document.addEventListener('DOMContentLoaded', () => {
+            const forms = document.querySelectorAll('form');
+            forms.forEach(form => {
+                form.addEventListener('invalid', (e) => {
+                    e.preventDefault(); // Prevent default browser tooltip
+                    
+                    // Add a small shake animation to the invalid field (requires tailwind class or just inline style)
+                    const field = e.target;
+                    field.style.border = '2px solid red';
+                    setTimeout(() => {
+                        field.style.border = '';
+                    }, 3000);
+
+                    let fieldName = field.getAttribute('name') || field.getAttribute('id') || 'A required field';
+                    // Format field name if possible
+                    fieldName = fieldName.replace(/_/g, ' ');
+                    fieldName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
+
+                    Toastify({
+                        text: `Please fill out: ${fieldName}`,
+                        duration: 3000,
+                        close: true,
+                        gravity: "top", 
+                        position: "right",
+                        style: {
+                            background: "linear-gradient(to right, #ff5f6d, #ffc371)",
+                            borderRadius: "8px",
+                            fontFamily: "Inter, sans-serif",
+                            boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
+                        }
+                    }).showToast();
+                }, true);
+            });
         });
     </script>
     {% block extra_js %}{% endblock %}
