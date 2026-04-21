@@ -16,7 +16,8 @@
     <meta property="og:image" content="{% static 'images/home-image.png' %}">
     
     <!-- Tailwind CSS -->
-    {% if debug %}
+    <!-- Tailwind CSS -->
+    {% if debug or "127.0.0.1" in request.get_host or "localhost" in request.get_host %}
     <!-- Use Play CDN for faster local development -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -34,9 +35,9 @@
     <!-- Use Compiled CSS for production (Stops CDN warnings & improves speed) -->
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     {% endif %}
+
     
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
