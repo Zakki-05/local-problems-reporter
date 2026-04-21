@@ -1,7 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from imagekit.models import ProcessedImageField
-from imagekit.processors import ResizeToFit
 
 class Issue(models.Model):
     CATEGORY_CHOICES = [
@@ -22,11 +20,7 @@ class Issue(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
-    image = ProcessedImageField(upload_to='issues/',
-                                processors=[ResizeToFit(1200, 1200)],
-                                format='WEBP',
-                                options={'quality': 80},
-                                blank=True, null=True)
+    image = models.ImageField(upload_to='issues/', blank=True, null=True)
     latitude = models.FloatField()
     longitude = models.FloatField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
