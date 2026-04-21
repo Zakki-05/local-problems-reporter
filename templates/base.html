@@ -15,12 +15,28 @@
     <meta property="og:description" content="Report local issues, track municipality progress, and view the live civic map.">
     <meta property="og:image" content="{% static 'images/home-image.png' %}">
     
-    <!-- Tailwind Play CDN for Local Development -->
+    <!-- Tailwind CSS -->
+    {% if debug %}
+    <!-- Use Play CDN for faster local development -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Compiled Tailwind CSS (Fallback/Production) -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    {% else %}
+    <!-- Use Compiled CSS for production (Stops CDN warnings & improves speed) -->
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    {% endif %}
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
