@@ -14,3 +14,14 @@ class IssueForm(forms.ModelForm):
             'latitude': forms.HiddenInput(attrs={'id': 'id_latitude'}),
             'longitude': forms.HiddenInput(attrs={'id': 'id_longitude'}),
         }
+
+    def clean(self):
+        cleaned_data = super().clean()
+        lat = cleaned_data.get('latitude')
+        lng = cleaned_data.get('longitude')
+        address = cleaned_data.get('location_address')
+
+        if not (lat and lng) and not address:
+            raise forms.ValidationError("Please provide either a Map Location or a Manual Address.")
+        
+        return cleaned_data
