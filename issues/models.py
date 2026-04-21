@@ -21,6 +21,7 @@ class Issue(models.Model):
     description = models.TextField()
     category = models.CharField(max_length=50, choices=CATEGORY_CHOICES)
     image = models.ImageField(upload_to='issues/', blank=True, null=True)
+    location_address = models.CharField(max_length=255, blank=True, help_text="Street name or landmark")
     latitude = models.FloatField()
     longitude = models.FloatField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
