@@ -7,7 +7,7 @@ from .models import Issue
 from .forms import IssueForm
 
 def home(request):
-    recent_issues = Issue.objects.order_by('-created_at')[:6]
+    recent_issues = Issue.objects.select_related('user').order_by('-created_at')[:6]
     return render(request, 'issues/home.html', {'recent_issues': recent_issues})
 
 @login_required
@@ -24,7 +24,7 @@ def report_issue(request):
     return render(request, 'issues/report.html', {'form': form})
 
 def issues_list(request):
-    issues = Issue.objects.all().order_by('-created_at')
+    issues = Issue.objects.select_related('user').order_by('-created_at')
     
     category = request.GET.get('category')
     if category:
@@ -88,7 +88,7 @@ def official_dashboard(request):
             issue.save()
             return redirect('official_dashboard')
             
-    issues = Issue.objects.all().order_by('-created_at')
+    issues = Issue.objects.select_related('user').order_by('-created_at')
     
     # Matching bilingual strings based on 'in' functionality
     pending_count = sum(1 for i in issues if 'Pending' in i.status)

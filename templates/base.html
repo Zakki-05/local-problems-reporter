@@ -7,9 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Official Smart Grievance Reporting System for Pernambut, Tamil Nadu. Report and track local civic issues effortlessly.">
     <title>Pernambut Civic Issue Reporter</title>
+    
+    <!-- Open Graph / SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pernambut-hub.onrender.com/">
+    <meta property="og:title" content="Pernambut Civic Hub - Official Portal">
+    <meta property="og:description" content="Report local issues, track municipality progress, and view the live civic map.">
+    <meta property="og:image" content="{% static 'images/home-image.png' %}">
+    
     <!-- Tailwind Play CDN for Local Development -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Compiled Tailwind CSS (Fallback/Production) -->
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
@@ -304,7 +312,7 @@
                         style: {
                             background: "linear-gradient(to right, #ff5f6d, #ffc371)",
                             borderRadius: "8px",
-                            fontFamily: "Inter, sans-serif",
+                            fontFamily: "Outfit, sans-serif",
                             boxShadow: "0 4px 12px rgba(0,0,0,0.15)"
                         }
                     }).showToast();
