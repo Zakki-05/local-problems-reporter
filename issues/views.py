@@ -102,3 +102,6 @@ def official_dashboard(request):
         'resolved_count': resolved_count
     }
     return render(request, 'issues/official_dashboard.html', context)
+
+def contact(request):
+    return render(request, 'issues/contact.html')
