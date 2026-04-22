@@ -225,7 +225,8 @@
                 <div class="relative h-64 overflow-hidden bg-slate-900">
                     {% if issue.image %}
                     <img src="{{ issue.image.url }}" alt="{{ issue.title }}"
-                        class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105">
+                        class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105"
+                        loading="lazy">
                     <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent">
                     </div>
                     {% else %}
