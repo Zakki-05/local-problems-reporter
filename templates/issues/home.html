@@ -3,20 +3,59 @@
 {% block content %}
 {% load static %}
 <h1 class="sr-only">Pernambut Civic Issue Tracker</h1>
-<!-- True-to-Size Background Hero -->
-<div class="relative w-full overflow-hidden min-h-[500px] md:min-h-0 bg-slate-900">
-    <!-- The Base Image (Defines the perfect height of the section) -->
-    <img src="{% static 'images/home-image.png' %}" alt="Pernambut Civic Hub" class="w-full h-auto block"
-        data-aos="fade" data-aos-duration="1500">
+<!-- Clean Gradient Hero Section -->
+<div
+    class="relative w-full bg-slate-900 overflow-hidden lg:aspect-[21/9] md:aspect-[16/10] min-h-[350px] md:min-h-[450px] lg:min-h-[500px] flex items-center justify-center py-10 md:py-16 lg:py-0">
+    <!-- Desktop Hero Image (Visible only on lg screens and up) -->
+    <div class="absolute inset-0 hidden lg:block">
+        <img src="{% static 'images/hero-image-lap.png' %}" alt="Pernambut Civic Hub Desktop"
+            class="w-full h-full object-cover object-center opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
+    </div>
 
-    <!-- The Content Overlay (Centered perfectly on the image) -->
-    <div
-        class="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-900/30 to-blue-900/50 flex flex-col items-center justify-end text-center px-4 md:px-8 pb-12 md:pb-20">
-        <div class="max-w-4xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
+    <!-- Mobile & Tablet Hero Image (Visible on screens below lg) -->
+    <div class="absolute inset-0 block lg:hidden">
+        <img src="{% static 'images/home-image-tab.png' %}" alt="Pernambut Civic Hub Mobile"
+            class="w-full h-full object-cover object-center opacity-60">
+        <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60"></div>
+    </div>
 
+    <!-- Subtle Animated Background Elements -->
+    <div class="absolute inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-[120px] animate-pulse"></div>
+        <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-green-500/10 rounded-full blur-[120px] animate-pulse"
+            style="animation-delay: 2s;"></div>
+    </div>
 
+    <!-- The Content Container -->
+    <div class="relative flex flex-col items-center text-center px-4 md:px-8 z-10">
+        <div class="max-w-5xl mx-auto" data-aos="zoom-in" data-aos-delay="200">
+            <!-- State Initiative Badge -->
+            <div class="flex justify-center mb-6 md:mb-8">
+                <span
+                    class="inline-flex items-center px-4 py-1.5 rounded-full bg-white/95 text-slate-900 text-[10px] md:text-xs font-black uppercase tracking-[0.2em] shadow-2xl border border-white">
+                    <img src="{% static 'images/fave-icon.png' %}" class="w-4 h-4 mr-2 object-contain" alt="TN Logo">
+                    A Tamil Nadu State Initiative
+                </span>
+            </div>
 
-            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full max-w-md mx-auto">
+            <!-- Main Title -->
+            <h1
+                class="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-4 tracking-tighter leading-none drop-shadow-2xl">
+                PERNAMBUT <span class="text-blue-400">CIVIC ISSUE</span> REPORTER
+            </h1>
+
+            <!-- Subtitle -->
+            <h2 class="text-xl md:text-3xl font-black text-blue-200 mb-6 tracking-wide uppercase">
+                Tamil Nadu Smart Grievance System
+            </h2>
+
+            <!-- Slogan -->
+            <p class="text-lg md:text-xl text-white/90 font-bold mb-10 md:mb-12 max-w-2xl mx-auto drop-shadow-lg">
+                Report. Track. Resolve. For a Better Pernambut.
+            </p>
+
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 w-full mx-auto">
                 <a href="{% url 'report_issue' %}"
                     class="w-full sm:w-auto px-6 md:px-10 py-3 md:py-4 bg-green-500 hover:bg-green-400 text-white rounded-xl font-bold text-lg shadow-[0_8px_30px_rgb(0,0,0,0.12)] transition-all transform hover:-translate-y-1 flex justify-center items-center group">
                     Report Issue
@@ -36,115 +75,241 @@
 </div>
 
 <!-- Quick Categories Section -->
-<div class="w-full bg-white relative z-20 -mt-8">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-white rounded-2xl shadow-xl p-4 md:p-6 border border-slate-100"
+<div class="w-full bg-white relative z-20 mt-0 pt-16 md:pt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 bg-white rounded-[2.5rem] shadow-2xl shadow-slate-200/50 p-6 md:p-10 border border-slate-100"
             data-aos="fade-up" data-aos-delay="400">
             <!-- Road -->
             <a href="{% url 'issues_list' %}?category=Road"
-                class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer border border-transparent hover:border-slate-100">
+                class="flex flex-col items-center justify-center p-6 rounded-[2rem] hover:bg-slate-50 transition-all group border border-transparent hover:border-slate-100 hover:shadow-lg">
                 <div
-                    class="w-14 h-14 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                    class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
                     🛣️</div>
-                <span class="font-semibold text-slate-700 text-sm md:text-base">Roads</span>
+                <span class="font-black text-slate-900 text-xs uppercase tracking-widest">Roads</span>
             </a>
             <!-- Water -->
             <a href="{% url 'issues_list' %}?category=Water"
-                class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer border border-transparent hover:border-slate-100">
+                class="flex flex-col items-center justify-center p-6 rounded-[2rem] hover:bg-slate-50 transition-all group border border-transparent hover:border-slate-100 hover:shadow-lg">
                 <div
-                    class="w-14 h-14 bg-cyan-50 text-cyan-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                    class="w-16 h-16 bg-cyan-50 text-cyan-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
                     💧</div>
-                <span class="font-semibold text-slate-700 text-sm md:text-base">Water</span>
+                <span class="font-black text-slate-900 text-xs uppercase tracking-widest">Water</span>
             </a>
             <!-- Electricity -->
             <a href="{% url 'issues_list' %}?category=Street_Light"
-                class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer border border-transparent hover:border-slate-100">
+                class="flex flex-col items-center justify-center p-6 rounded-[2rem] hover:bg-slate-50 transition-all group border border-transparent hover:border-slate-100 hover:shadow-lg">
                 <div
-                    class="w-14 h-14 bg-yellow-50 text-yellow-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                    class="w-16 h-16 bg-yellow-50 text-yellow-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
                     ⚡</div>
-                <span class="font-semibold text-slate-700 text-sm md:text-base">Electricity</span>
+                <span class="font-black text-slate-900 text-xs uppercase tracking-widest">Electricity</span>
             </a>
             <!-- Garbage -->
             <a href="{% url 'issues_list' %}?category=Garbage"
-                class="flex flex-col items-center justify-center p-4 rounded-xl hover:bg-slate-50 transition-colors group cursor-pointer border border-transparent hover:border-slate-100">
+                class="flex flex-col items-center justify-center p-6 rounded-[2rem] hover:bg-slate-50 transition-all group border border-transparent hover:border-slate-100 hover:shadow-lg">
                 <div
-                    class="w-14 h-14 bg-green-50 text-green-600 rounded-full flex items-center justify-center text-2xl mb-3 group-hover:scale-110 transition-transform">
+                    class="w-16 h-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition-transform">
                     🗑️</div>
-                <span class="font-semibold text-slate-700 text-sm md:text-base">Garbage</span>
+                <span class="font-black text-slate-900 text-xs uppercase tracking-widest">Garbage</span>
             </a>
         </div>
     </div>
 </div>
 
-<!-- Recent Issues Section -->
-<div class="py-20 bg-slate-50">
+<!-- How to Report Section -->
+<div class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-16 section-header" data-aos="fade-up">
-            <h2 class="text-3xl md:text-4xl font-bold text-slate-800">Recent Complaints /சமீபத்திய புகார்கள்</h2>
-            <div class="w-24 h-1 bg-green-500 mx-auto mt-4 rounded-full"></div>
-            <p class="mt-4 text-slate-600 max-w-2xl mx-auto">Latest issues reported by citizens in Pernambut area.</p>
+        <div class="text-center mb-20" data-aos="fade-up">
+            <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-200">
+                Process Guide
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">How to Report an Issue <br
+                    class="md:hidden"> <span class="text-blue-600">/ புகாரளிப்பது எப்படி?</span></h2>
+            <div class="w-20 h-1.5 bg-blue-600 mx-auto mt-6 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <!-- Step 1 -->
+            <div class="relative group" data-aos="fade-up" data-aos-delay="100">
+                <div
+                    class="absolute -top-4 -left-4 w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-2xl z-10 group-hover:scale-110 transition-transform">
+                    1</div>
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 h-full transition-all hover:shadow-2xl hover:bg-white hover:border-white">
+                    <div
+                        class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        🔑</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Login</h3>
+                    <div class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">உள்நுழைவு / பதிவு
+                    </div>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Create an account or sign in to start
+                        reporting issues securely.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative group" data-aos="fade-up" data-aos-delay="200">
+                <div
+                    class="absolute -top-4 -left-4 w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-2xl z-10 group-hover:scale-110 transition-transform">
+                    2</div>
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 h-full transition-all hover:shadow-2xl hover:bg-white hover:border-white">
+                    <div
+                        class="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        📝</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Add Details</h3>
+                    <div class="text-[10px] font-black text-green-600 uppercase tracking-widest mb-4">விவரங்களைச்
+                        சேர்க்க</div>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Provide a title, description, and
+                        accurate category for the problem.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative group" data-aos="fade-up" data-aos-delay="300">
+                <div
+                    class="absolute -top-4 -left-4 w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-2xl z-10 group-hover:scale-110 transition-transform">
+                    3</div>
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 h-full transition-all hover:shadow-2xl hover:bg-white hover:border-white">
+                    <div
+                        class="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        📍</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Pin Location</h3>
+                    <div class="text-[10px] font-black text-yellow-600 uppercase tracking-widest mb-4">இடத்தைக்
+                        குறிக்கவும்</div>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Use the interactive map or enter a
+                        precise manual address for fixers.</p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative group" data-aos="fade-up" data-aos-delay="400">
+                <div
+                    class="absolute -top-4 -left-4 w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-2xl z-10 group-hover:scale-110 transition-transform">
+                    4</div>
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 h-full transition-all hover:shadow-2xl hover:bg-white hover:border-white">
+                    <div
+                        class="w-16 h-16 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center text-3xl mb-8">
+                        🚀</div>
+                    <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Track</h3>
+                    <div class="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-4">சமர்ப்பித்து
+                        கண்காணி</div>
+                    <p class="text-slate-500 text-sm leading-relaxed font-medium">Submit your report and track real-time
+                        progress from your dashboard.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Issues Section -->
+<div class="py-24 bg-slate-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-20" data-aos="fade-up">
+            <span
+                class="inline-flex items-center px-3 py-1 rounded-full bg-green-100 text-green-700 text-[10px] font-black uppercase tracking-widest mb-4 border border-green-200">
+                Live Feed
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">Recent Complaints <br
+                    class="md:hidden"> <span class="text-green-600">/ சமீபத்திய புகார்கள்</span></h2>
+            <div class="w-20 h-1.5 bg-green-500 mx-auto mt-6 rounded-full"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
             {% for issue in recent_issues %}
-            <div class="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition duration-300 transform hover:-translate-y-2 issue-card group"
-                data-aos="fade-up" data-aos-delay="100">
-                <div class="relative h-40 overflow-hidden bg-slate-200">
+            <div class="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full"
+                data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:1 }}00">
+
+                <div class="relative h-64 overflow-hidden bg-slate-900">
                     {% if issue.image %}
                     <img src="{{ issue.image.url }}" alt="{{ issue.title }}"
-                        class="absolute inset-0 w-full h-full object-cover object-center group-hover:scale-110 transition duration-500">
+                        class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent">
+                    </div>
                     {% else %}
-                    <div class="w-full h-full flex items-center justify-center text-slate-400">
-                        <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    <div class="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-100">
+                        <svg class="w-12 h-12 mb-2 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
                                 d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
                             </path>
                         </svg>
+                        <span class="text-[9px] font-black uppercase tracking-widest">No Image</span>
                     </div>
                     {% endif %}
-                    <div
-                        class="absolute top-4 right-4 px-3 py-1 bg-white/90 backdrop-blur rounded-full text-xs font-bold text-slate-800 shadow-sm">
-                        {{ issue.category }}
-                    </div>
-                </div>
-                <div class="p-6">
-                    <div class="flex justify-between items-center mb-3">
-                        <span class="text-xs text-slate-500">{{ issue.created_at|date:"M d, Y" }}</span>
-                        <!-- Status Badge -->
-                        {% if issue.status == 'Pending' %}
-                        <span class="px-2 py-1 bg-red-100 text-red-700 rounded text-xs font-semibold">Pending</span>
-                        {% elif issue.status == 'In Progress' %}
-                        <span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded text-xs font-semibold">In
-                            Progress</span>
-                        {% else %}
+
+                    <div class="absolute top-6 left-6">
                         <span
-                            class="px-2 py-1 bg-green-100 text-green-700 rounded text-xs font-semibold">Resolved</span>
+                            class="px-3 py-1.5 bg-white/10 backdrop-blur-md text-[9px] font-black text-white rounded-lg shadow-xl uppercase tracking-[0.2em]">
+                            {{ issue.category }}
+                        </span>
+                    </div>
+
+                    <div class="absolute bottom-6 left-6">
+                        {% if 'Pending' in issue.status %}
+                        <div class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full flex items-center">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-red-500 mr-2 shadow-[0_0_8px_rgba(239,68,68,1)]"></span>
+                            <span class="text-white text-[8px] font-black uppercase tracking-widest">Pending</span>
+                        </div>
+                        {% elif 'In Progress' in issue.status %}
+                        <div class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full flex items-center">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-yellow-400 mr-2 shadow-[0_0_8px_rgba(234,179,8,1)]"></span>
+                            <span class="text-white text-[8px] font-black uppercase tracking-widest">In Progress</span>
+                        </div>
+                        {% else %}
+                        <div class="bg-black/40 backdrop-blur-md px-3 py-1 rounded-full flex items-center">
+                            <span
+                                class="w-1.5 h-1.5 rounded-full bg-green-400 mr-2 shadow-[0_0_8px_rgba(34,197,94,1)]"></span>
+                            <span class="text-white text-[8px] font-black uppercase tracking-widest">Resolved</span>
+                        </div>
                         {% endif %}
                     </div>
-                    <h3 class="text-xl font-bold mb-2 text-slate-800 line-clamp-1">{{ issue.title }}</h3>
-                    <p class="text-slate-600 text-sm mb-4 line-clamp-2">{{ issue.description }}</p>
-                    <a href="{% url 'issue_detail' issue.pk %}"
-                        class="text-blue-600 font-semibold hover:text-blue-800 inline-flex items-center group-hover:underline">
-                        View Details
-                        <svg class="w-4 h-4 ml-1 transform group-hover:translate-x-1 transition" fill="none"
-                            stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7">
-                            </path>
-                        </svg>
-                    </a>
+                </div>
+
+                <div class="p-8 flex flex-col flex-1">
+                    <div class="flex justify-between items-center mb-4">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">{{ issue.created_at|date:"M d, Y" }}</span>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-black text-[10px] mr-2 border border-blue-100">
+                                {{ issue.user.username|first|upper }}
+                            </div>
+                            <span class="text-[10px] font-black text-slate-700 uppercase tracking-widest">{{ issue.user.username }}</span>
+                        </div>
+                    </div>
+
+                    <h3 class="text-xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 leading-tight tracking-tight uppercase">
+                        {{ issue.title }}</h3>
+                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed font-medium italic">"{{ issue.description }}"</p>
+
+                    <div class="pt-6 border-t border-slate-100 mt-auto flex justify-end">
+                        <a href="{% url 'issue_detail' issue.pk %}"
+                            class="inline-flex items-center text-[10px] font-black text-slate-900 hover:text-blue-600 uppercase tracking-[0.2em] group/link transition-all">
+                            View Report
+                            <svg class="w-4 h-4 ml-2 transform group-hover/link:translate-x-1 transition-transform"
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                    d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                            </svg>
+                        </a>
+                    </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-3 text-center py-10 text-slate-500">
-                <p>No issues reported yet. Be the first to make a positive change!</p>
+            <div class="col-span-3 text-center py-20 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm">
+                <p class="text-slate-400 font-bold uppercase tracking-widest text-xs">No issues reported yet. Be the
+                    first to act.</p>
             </div>
             {% endfor %}
         </div>
 
-        <div class="text-center mt-12" data-aos="zoom-in" data-aos-delay="200">
+        <div class="text-center mt-16" data-aos="zoom-in">
             <a href="{% url 'issues_list' %}"
-                class="inline-block px-6 py-3 border-2 border-slate-300 text-slate-700 hover:border-blue-500 hover:text-blue-600 rounded-full font-bold transition">View
-                All Reports</a>
+                class="inline-flex items-center px-10 py-4 bg-white hover:bg-slate-900 hover:text-white text-slate-900 border-2 border-slate-200 rounded-2xl font-black text-xs uppercase tracking-widest transition-all shadow-xl active:scale-95">
+                Browse All Reports
+            </a>
         </div>
     </div>
 </div>

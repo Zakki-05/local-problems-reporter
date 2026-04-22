@@ -1,5 +1,15 @@
 from django import forms
-from .models import Issue
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
+from .models import Issue, UserProfile
+
+class UserRegistrationForm(UserCreationForm):
+    email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1 bg-white/50 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 outline-none'}))
+    phone_number = forms.CharField(required=True, max_length=15, widget=forms.TextInput(attrs={'class': 'w-full p-2 border border-gray-300 rounded mt-1 bg-white/50 backdrop-blur-sm focus:ring-2 focus:ring-blue-500 outline-none', 'placeholder': 'Enter mobile number'}))
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = UserCreationForm.Meta.fields + ('email',)
 
 class IssueForm(forms.ModelForm):
     class Meta:

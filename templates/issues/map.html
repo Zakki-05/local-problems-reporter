@@ -4,13 +4,38 @@
 <div class="h-[calc(100vh-64px)] w-full relative">
     <div id="map" class="w-full h-full z-0"></div>
     
-    <div class="absolute top-4 left-4 z-10 bg-white/90 backdrop-blur p-4 rounded-xl shadow-lg border border-slate-200 map-legend">
-        <h3 class="font-bold text-slate-800 mb-2">Issue Status</h3>
-        <ul class="space-y-2 text-sm">
-            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-red-500 mr-2 border border-white shadow-sm"></span> Pending (நிலுவையில்)</li>
-            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-yellow-500 mr-2 border border-white shadow-sm"></span> In Progress (செயல்பாட்டில்)</li>
-            <li class="flex items-center"><span class="w-4 h-4 rounded-full bg-green-500 mr-2 border border-white shadow-sm"></span> Resolved (தீர்வு)</li>
-        </ul>
+    <!-- Premium Map Legend -->
+    <div class="absolute top-6 left-6 z-10 glass-dark p-6 rounded-[2rem] shadow-2xl border border-white/20 w-64 md:w-80" data-aos="fade-right">
+        <h3 class="text-xs font-black text-white uppercase tracking-[0.2em] mb-1">Live Problem Map</h3>
+        <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-6">நேரலை வரைபடம்</p>
+        
+        <div class="space-y-4">
+            <div class="flex items-center gap-4">
+                <span class="w-4 h-4 rounded-full bg-red-500 border-2 border-white shadow-[0_0_10px_rgba(239,68,68,0.5)]"></span>
+                <div>
+                    <div class="text-[10px] font-black text-white uppercase tracking-wider">Pending Cases</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase">நிலுவையில் உள்ளவை</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="w-4 h-4 rounded-full bg-yellow-400 border-2 border-white shadow-[0_0_10px_rgba(234,179,8,0.5)]"></span>
+                <div>
+                    <div class="text-[10px] font-black text-white uppercase tracking-wider">In Progress</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase">செயல்பாட்டில் உள்ளவை</div>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <span class="w-4 h-4 rounded-full bg-green-400 border-2 border-white shadow-[0_0_10px_rgba(34,197,94,0.5)]"></span>
+                <div>
+                    <div class="text-[10px] font-black text-white uppercase tracking-wider">Resolved Issues</div>
+                    <div class="text-[9px] font-bold text-slate-400 uppercase">தீர்வு காணப்பட்டவை</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 pt-6 border-t border-white/10">
+            <p class="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-relaxed">Click on any marker to view the report details.</p>
+        </div>
     </div>
 </div>
 {% endblock %}

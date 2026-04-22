@@ -3,53 +3,57 @@
 
 {% block content %}
 <div class="py-16 bg-slate-50 min-h-screen">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <!-- Header Section -->
-        <div class="text-center mb-16" data-aos="fade-up">
-            <h1 class="text-4xl md:text-5xl font-black text-slate-900 mb-4">Contact Us / தொடர்பு கொள்க</h1>
-            <div class="w-20 h-1.5 bg-blue-600 mx-auto rounded-full mb-6"></div>
-            <p class="text-lg text-slate-600 max-w-2xl mx-auto">Have questions or need assistance? Our municipal team is
-                here to help you.</p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Premium Header -->
+        <div class="mb-16 text-center" data-aos="fade-up">
+            <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-200">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span> Get In Touch
+            </span>
+            <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight">Contact Support</h1>
+            <h2 class="text-xl md:text-2xl font-bold text-blue-600/80 mt-1">தொடர்பு மற்றும் உதவி மையம்</h2>
+            <div class="w-20 h-1.5 bg-blue-600 mx-auto mt-6 rounded-full"></div>
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <!-- Contact Info Cards -->
             <div class="space-y-6" data-aos="fade-right">
                 <!-- Phone -->
-                <div
-                    class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex items-start gap-6 hover:shadow-md transition">
-                    <div
-                        class="w-14 h-14 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 text-2xl">
+                <div class="group bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex items-start gap-8 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0 text-3xl group-hover:scale-110 transition-transform">
                         📞</div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-1">Phone Numbers</h3>
-                        <p class="text-slate-600 mb-2">Toll-Free: 1800-425-XXXX</p>
-                        <p class="text-slate-600">Office: 04171-XXXXXX</p>
+                        <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Official Helpline</h3>
+                        <p class="text-[10px] font-black text-blue-600 uppercase tracking-widest mb-4">தொலைபேசி எண்கள்</p>
+                        <div class="space-y-2">
+                            <p class="text-slate-600 font-bold">Toll-Free: <span class="text-slate-900">1800-425-XXXX</span></p>
+                            <p class="text-slate-600 font-bold">Office: <span class="text-slate-900">04171-XXXXXX</span></p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Email -->
-                <div
-                    class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex items-start gap-6 hover:shadow-md transition">
-                    <div
-                        class="w-14 h-14 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center shrink-0 text-2xl">
+                <div class="group bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex items-start gap-8 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
+                    <div class="w-16 h-16 bg-green-50 text-green-600 rounded-2xl flex items-center justify-center shrink-0 text-3xl group-hover:scale-110 transition-transform">
                         📧</div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-1">Email Support</h3>
-                        <p class="text-slate-600 mb-2">grievance@pernambut.tn.gov.in</p>
-                        <p class="text-slate-600">admin@pernambut.tn.gov.in</p>
+                        <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Email Inquiries</h3>
+                        <p class="text-[10px] font-black text-green-600 uppercase tracking-widest mb-4">மின்னஞ்சல் முகவரி</p>
+                        <div class="space-y-2">
+                            <p class="text-slate-600 font-bold underline decoration-green-200">grievance@pernambut.tn.gov.in</p>
+                            <p class="text-slate-600 font-bold underline decoration-green-200">admin@pernambut.tn.gov.in</p>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Address -->
-                <div
-                    class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 flex items-start gap-6 hover:shadow-md transition">
-                    <div
-                        class="w-14 h-14 bg-purple-100 text-purple-600 rounded-2xl flex items-center justify-center shrink-0 text-2xl">
+                <div class="group bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 flex items-start gap-8 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500">
+                    <div class="w-16 h-16 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center shrink-0 text-3xl group-hover:scale-110 transition-transform">
                         📍</div>
                     <div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-1">Office Location</h3>
-                        <p class="text-slate-600 leading-relaxed">
+                        <h3 class="text-xl font-black text-slate-900 mb-1 uppercase tracking-tight">Municipal Office</h3>
+                        <p class="text-[10px] font-black text-purple-600 uppercase tracking-widest mb-4">அலுவலக முகவரி</p>
+                        <p class="text-slate-600 font-bold leading-relaxed">
                             Municipal Office, Main Road,<br>
                             Pernambut, Vellore District,<br>
                             Tamil Nadu - 635810
@@ -58,27 +62,31 @@
                 </div>
             </div>
 
-            <!-- Simple Contact Form -->
-            <div class="bg-white p-10 rounded-[2rem] shadow-xl border border-slate-100" data-aos="fade-left">
-                <h3 class="text-2xl font-bold text-slate-900 mb-6">Send us a message</h3>
-                <form class="space-y-4">
+            <!-- Modern Contact Form -->
+            <div class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-2xl shadow-slate-200/80 border border-slate-100 relative overflow-hidden" data-aos="fade-left">
+                <div class="absolute -right-10 -top-10 w-48 h-48 bg-blue-500 rounded-full blur-[80px] opacity-10"></div>
+                
+                <h3 class="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tight">Send a Message</h3>
+                <p class="text-slate-400 text-[10px] font-black uppercase tracking-widest mb-10">எங்களுக்கு செய்தி அனுப்பவும்</p>
+                
+                <form class="space-y-6 relative z-10">
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Full Name</label>
+                        <label class="block text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] mb-2">Full Name</label>
                         <input type="text" placeholder="Your Name"
-                            class="w-full px-5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition outline-none">
+                            class="w-full px-6 py-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-blue-500 focus:bg-white transition-all outline-none font-bold text-slate-900">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Email Address</label>
+                        <label class="block text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] mb-2">Email Address</label>
                         <input type="email" placeholder="email@example.com"
-                            class="w-full px-5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition outline-none">
+                            class="w-full px-6 py-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-blue-500 focus:bg-white transition-all outline-none font-bold text-slate-900">
                     </div>
                     <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Message</label>
+                        <label class="block text-[10px] font-black text-slate-900 uppercase tracking-[0.2em] mb-2">Message</label>
                         <textarea rows="4" placeholder="How can we help you?"
-                            class="w-full px-5 py-3 rounded-xl border border-slate-200 focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition outline-none resize-none"></textarea>
+                            class="w-full px-6 py-4 rounded-xl bg-slate-50 border-2 border-slate-100 focus:border-blue-500 focus:bg-white transition-all outline-none font-bold text-slate-900 resize-none"></textarea>
                     </div>
                     <button type="button" onclick="alert('Message sent successfully!')"
-                        class="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-600/30 transition-all transform hover:-translate-y-1">
+                        class="w-full py-5 bg-slate-900 hover:bg-black text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] shadow-2xl transition-all transform hover:-translate-y-1 active:scale-95">
                         Send Message
                     </button>
                 </form>

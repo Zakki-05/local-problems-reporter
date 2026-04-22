@@ -5,16 +5,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Official Smart Grievance Reporting System for Pernambut, Tamil Nadu. Report and track local civic issues effortlessly.">
+    <meta name="description"
+        content="Official Smart Grievance Reporting System for Pernambut, Tamil Nadu. Report and track local civic issues effortlessly.">
     <title>Pernambut Civic Issue Reporter</title>
-    
+
     <!-- Open Graph / SEO -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pernambut-hub.onrender.com/">
     <meta property="og:title" content="Pernambut Civic Hub - Official Portal">
-    <meta property="og:description" content="Report local issues, track municipality progress, and view the live civic map.">
+    <meta property="og:description"
+        content="Report local issues, track municipality progress, and view the live civic map.">
     <meta property="og:image" content="{% static 'images/home-image.png' %}">
-    
+
     <!-- Tailwind CSS -->
     {% if debug or "127.0.0.1" in request.get_host or "localhost" in request.get_host %}
     <script src="https://cdn.tailwindcss.com"></script>
@@ -33,9 +35,10 @@
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     {% endif %}
 
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
     <!-- Leaflet CSS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
@@ -46,10 +49,10 @@
 
     <!-- Custom Separate CSS -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+
     <!-- Toastify CSS -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    
+
     <!-- AOS Animation CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -74,20 +77,26 @@
                 <div class="hidden lg:flex space-x-6 items-center">
                     <a href="{% url 'home' %}"
                         class="font-medium transition {% if request.resolver_match.url_name == 'home' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Home</a>
+                    <a href="{% url 'about' %}"
+                        class="font-medium transition {% if request.resolver_match.url_name == 'about' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">About</a>
                     <a href="{% url 'map_view' %}"
-                        class="font-medium transition {% if request.resolver_match.url_name == 'map_view' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Live Map</a>
+                        class="font-medium transition {% if request.resolver_match.url_name == 'map_view' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Live
+                        Map</a>
                     <a href="{% url 'issues_list' %}"
-                        class="font-medium transition {% if request.resolver_match.url_name == 'issues_list' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Browse Issues</a>
+                        class="font-medium transition {% if request.resolver_match.url_name == 'issues_list' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Browse
+                        Issues</a>
 
 
                     {% if user.is_authenticated %}
                     <a href="{% url 'report_issue' %}"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5 whitespace-nowrap">Report Issue</a>
+                        class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-full font-medium transition shadow-lg shadow-blue-500/30 transform hover:-translate-y-0.5 whitespace-nowrap">Report
+                        Issue</a>
                     <a href="{% url 'dashboard' %}"
                         class="text-slate-600 hover:text-green-600 font-medium transition">Dashboard</a>
                     {% if user.is_staff %}
                     <a href="{% url 'official_dashboard' %}"
-                        class="bg-blue-100 text-blue-800 px-5 py-2 rounded-full font-medium transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5 whitespace-nowrap">Official Panel / அதிகாரி தளம்</a>
+                        class="bg-blue-100 text-blue-800 px-5 py-2 rounded-full font-medium transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5 whitespace-nowrap">Official
+                        Panel / அதிகாரி தளம்</a>
                     {% endif %}
                     <form method="post" action="{% url 'logout' %}" class="inline">
                         {% csrf_token %}
@@ -108,9 +117,14 @@
                         class="flex flex-col justify-center items-center w-12 h-12 bg-blue-100/80 text-blue-900 rounded-2xl focus:outline-none z-50 transition-all hover:bg-blue-200"
                         style="display: flex !important;">
                         <div class="w-6 h-4 flex flex-col justify-between items-center">
-                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left" id="bar1"></span>
-                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300" id="bar2"></span>
-                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left" id="bar3"></span>
+                            <span
+                                class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left"
+                                id="bar1"></span>
+                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300"
+                                id="bar2"></span>
+                            <span
+                                class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left"
+                                id="bar3"></span>
                         </div>
                     </button>
                 </div>
@@ -142,6 +156,10 @@
             <a href="{% url 'home' %}"
                 class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
                 Home <span class="text-xs text-slate-400">முகப்பு</span>
+            </a>
+            <a href="{% url 'about' %}"
+                class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
+                About <span class="text-xs text-slate-400">தகவல்</span>
             </a>
             <a href="{% url 'map_view' %}"
                 class="py-3 px-4 rounded-xl text-slate-700 font-medium hover:bg-blue-50 hover:text-blue-600 transition flex justify-between items-center">
@@ -212,12 +230,13 @@
                             class="w-8 h-8 mr-2 object-contain">
                         Pernambut Municipal Council
                     </span>
-                    <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) <span class="hidden sm:inline">/ பேரணாம்பட்டு
-                            குறைதீர் மையம்</span>:</strong> Official Smart Grievance Reporting System for Pernambut, Tamil
+                    <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) <span
+                                class="hidden sm:inline">/ பேரணாம்பட்டு
+                                குறைதீர் மையம்</span>:</strong> Official Smart Grievance Reporting System for Pernambut,
+                        Tamil
                         Nadu.</p>
                 </div>
                 <div class="flex space-x-6 mt-4 md:mt-0 font-medium tracking-wide">
-                    <a href="{% url 'home' %}" class="hover:text-white hover:text-blue-400 transition">About</a>
                     <a href="{% url 'issues_list' %}" class="hover:text-white hover:text-blue-400 transition">Issues</a>
                     <a href="{% url 'map_view' %}" class="hover:text-white hover:text-blue-400 transition">Map</a>
                     <a href="/admin/" class="hover:text-white hover:text-blue-400 transition">Admin</a>
@@ -284,7 +303,7 @@
     </script>
     <!-- Toastify JS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    
+
     <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -303,7 +322,7 @@
             forms.forEach(form => {
                 form.addEventListener('invalid', (e) => {
                     e.preventDefault(); // Prevent default browser tooltip
-                    
+
                     // Add a small shake animation to the invalid field (requires tailwind class or just inline style)
                     const field = e.target;
                     field.style.border = '2px solid red';
@@ -320,7 +339,7 @@
                         text: `Please fill out: ${fieldName}`,
                         duration: 3000,
                         close: true,
-                        gravity: "top", 
+                        gravity: "top",
                         position: "right",
                         style: {
                             background: "linear-gradient(to right, #ff5f6d, #ffc371)",

@@ -8,43 +8,44 @@
         <!-- Premium Header & Filters -->
         <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-8" data-aos="fade-down">
             <div class="max-w-xl text-center lg:text-left">
-                <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-xs font-bold mb-4 border border-blue-200">
+                <span class="inline-flex items-center px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-[10px] font-black uppercase tracking-widest mb-4 border border-blue-200">
                     <span class="w-1.5 h-1.5 rounded-full bg-blue-600 mr-2"></span> Community Feed
                 </span>
                 <h1 class="text-3xl md:text-5xl font-black text-slate-900 leading-tight">Civic Issues Feed</h1>
-                <p class="text-slate-500 mt-3 text-lg">Real-time reports from citizens helping make Pernambut better, one fix at a time.</p>
+                <h2 class="text-xl md:text-2xl font-bold text-blue-600/80 mt-1">குடிமைப் பிரச்சனைகள் பட்டியல்</h2>
+                <p class="text-slate-500 mt-4 text-lg font-medium">Real-time reports from citizens helping make Pernambut better.</p>
             </div>
             
-            <form method="GET" class="flex flex-wrap items-center justify-center lg:justify-end gap-3 bg-white p-3 rounded-2xl shadow-sm border border-slate-100 w-full lg:w-auto">
-                <div class="relative">
-                    <select name="category" class="appearance-none bg-slate-50 border-0 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-blue-500 block w-full pl-4 pr-10 py-3 outline-none cursor-pointer transition-all hover:bg-slate-100">
-                        <option value="">All Categories</option>
+            <form method="GET" class="flex flex-wrap items-center justify-center lg:justify-end gap-3 bg-white p-3 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 w-full lg:w-auto">
+                <div class="relative min-w-[160px]">
+                    <select name="category" class="appearance-none bg-slate-50 border-0 text-slate-700 text-xs font-bold uppercase tracking-widest rounded-2xl focus:ring-2 focus:ring-blue-500 block w-full pl-4 pr-10 py-4 outline-none cursor-pointer transition-all hover:bg-slate-100">
+                        <option value="">Categories</option>
                         <option value="Garbage" {% if request.GET.category == 'Garbage' %}selected{% endif %}>🗑️ Garbage</option>
-                        <option value="Road" {% if request.GET.category == 'Road' %}selected{% endif %}>🛣️ Road Damage</option>
+                        <option value="Road" {% if request.GET.category == 'Road' %}selected{% endif %}>🛣️ Road</option>
                         <option value="Water" {% if request.GET.category == 'Water' %}selected{% endif %}>💧 Water</option>
-                        <option value="Street_Light" {% if request.GET.category == 'Street_Light' %}selected{% endif %}>⚡ Street Light</option>
+                        <option value="Street_Light" {% if request.GET.category == 'Street_Light' %}selected{% endif %}>⚡ Light</option>
                         <option value="Others" {% if request.GET.category == 'Others' %}selected{% endif %}>📍 Others</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-slate-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </div>
                 
-                <div class="relative">
-                    <select name="status" class="appearance-none bg-slate-50 border-0 text-slate-700 text-sm rounded-xl focus:ring-2 focus:ring-blue-500 block w-full pl-4 pr-10 py-3 outline-none cursor-pointer transition-all hover:bg-slate-100">
+                <div class="relative min-w-[160px]">
+                    <select name="status" class="appearance-none bg-slate-50 border-0 text-slate-700 text-xs font-bold uppercase tracking-widest rounded-2xl focus:ring-2 focus:ring-blue-500 block w-full pl-4 pr-10 py-4 outline-none cursor-pointer transition-all hover:bg-slate-100">
                         <option value="">All Status</option>
                         <option value="Pending" {% if request.GET.status == 'Pending' %}selected{% endif %}>⏳ Pending</option>
                         <option value="In Progress" {% if request.GET.status == 'In Progress' %}selected{% endif %}>⚙️ In Progress</option>
                         <option value="Resolved" {% if request.GET.status == 'Resolved' %}selected{% endif %}>✅ Resolved</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none text-slate-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none text-slate-400">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                 </div>
                 
-                <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-600/20 active:scale-95 transform">Filter</button>
-                <a href="{% url 'issues_list' %}" class="p-3 text-slate-400 hover:text-slate-600 transition" title="Reset Filters">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-blue-700 transition shadow-lg shadow-blue-600/20 active:scale-95 transform">Filter</button>
+                <a href="{% url 'issues_list' %}" class="p-4 text-slate-400 hover:text-blue-600 transition" title="Reset Filters">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
                 </a>
             </form>
         </div>
@@ -52,36 +53,46 @@
         <!-- Issues Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for issue in issues %}
-            <div class="group bg-white rounded-[2rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/5 transition-all duration-500 transform hover:-translate-y-3 flex flex-col h-full" 
+            <div class="group bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-slate-100 hover:shadow-2xl hover:shadow-blue-900/10 transition-all duration-500 transform hover:-translate-y-2 flex flex-col h-full" 
                  data-aos="fade-up" 
                  data-aos-delay="{{ forloop.counter0|add:1 }}00">
                 
                 <!-- Card Image Section -->
-                <div class="relative h-56 overflow-hidden bg-slate-200">
+                <div class="relative h-64 overflow-hidden bg-slate-900">
                     {% if issue.image %}
-                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-1000 group-hover:scale-105">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
                     {% else %}
-                    <div class="w-full h-full flex flex-col items-center justify-center text-slate-300">
-                        <svg class="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <span class="text-xs uppercase tracking-widest font-bold">No Image Attached</span>
+                    <div class="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-100">
+                        <svg class="w-12 h-12 mb-2 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <span class="text-[9px] uppercase tracking-[0.2em] font-black">No Reference Image</span>
                     </div>
                     {% endif %}
                     
                     <!-- Floating Category Badge -->
-                    <div class="absolute top-4 left-4">
-                        <span class="px-3 py-1.5 bg-white/90 backdrop-blur text-[10px] font-black text-blue-600 rounded-lg shadow-xl uppercase tracking-widest border border-white">
+                    <div class="absolute top-6 left-6">
+                        <span class="px-3 py-1.5 glass-light text-[9px] font-black text-blue-700 rounded-lg shadow-xl uppercase tracking-[0.2em]">
                             {{ issue.category }}
                         </span>
                     </div>
 
-                    <!-- Status Indicator -->
-                    <div class="absolute bottom-4 right-4">
+                    <!-- Status Pulse Indicator -->
+                    <div class="absolute bottom-6 left-6">
                         {% if 'Pending' in issue.status %}
-                            <span class="flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span></span>
+                            <div class="glass-dark px-3 py-1 rounded-full flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-500 mr-2 shadow-[0_0_8px_rgba(239,68,68,1)]"></span>
+                                <span class="text-white text-[8px] font-black uppercase tracking-widest">Pending</span>
+                            </div>
                         {% elif 'In Progress' in issue.status %}
-                            <span class="flex h-3 w-3"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-yellow-400 opacity-75"></span><span class="relative inline-flex rounded-full h-3 w-3 bg-yellow-500"></span></span>
+                            <div class="glass-dark px-3 py-1 rounded-full flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-yellow-400 mr-2 shadow-[0_0_8px_rgba(234,179,8,1)]"></span>
+                                <span class="text-white text-[8px] font-black uppercase tracking-widest">In Progress</span>
+                            </div>
                         {% else %}
-                            <span class="flex h-3 w-3"><span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span></span>
+                            <div class="glass-dark px-3 py-1 rounded-full flex items-center">
+                                <span class="w-1.5 h-1.5 rounded-full bg-green-400 mr-2 shadow-[0_0_8px_rgba(34,197,94,1)]"></span>
+                                <span class="text-white text-[8px] font-black uppercase tracking-widest">Resolved</span>
+                            </div>
                         {% endif %}
                     </div>
                 </div>
@@ -89,48 +100,43 @@
                 <!-- Card Content -->
                 <div class="p-8 flex flex-col flex-1">
                     <div class="flex justify-between items-center mb-4">
-                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">{{ issue.created_at|date:"M d, Y" }}</span>
-                        {% if 'Pending' in issue.status %}
-                            <span class="px-2 py-1 bg-red-50 text-red-600 rounded text-[10px] font-black uppercase tracking-wider">Pending</span>
-                        {% elif 'In Progress' in issue.status %}
-                            <span class="px-2 py-1 bg-yellow-50 text-yellow-700 rounded text-[10px] font-black uppercase tracking-wider">In Progress</span>
-                        {% else %}
-                            <span class="px-2 py-1 bg-green-50 text-green-700 rounded text-[10px] font-black uppercase tracking-wider">Resolved</span>
-                        {% endif %}
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">{{ issue.created_at|date:"M d, Y" }}</span>
+                        <div class="flex items-center">
+                            <div class="w-6 h-6 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-black text-[10px] mr-2 border border-blue-100">
+                                {{ issue.user.username|first|upper }}
+                            </div>
+                            <span class="text-[10px] font-black text-slate-700 uppercase tracking-widest">{{ issue.user.username }}</span>
+                        </div>
                     </div>
                     
-                    <h3 class="text-xl font-bold mb-3 text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 leading-tight">{{ issue.title }}</h3>
-                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed italic">"{{ issue.description }}"</p>
+                    <h3 class="text-xl font-black mb-3 text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1 leading-tight tracking-tight">{{ issue.title }}</h3>
+                    <p class="text-slate-500 text-sm mb-6 line-clamp-2 leading-relaxed font-medium">"{{ issue.description }}"</p>
                     
                     {% if issue.location_address %}
-                    <div class="mt-auto mb-6 flex items-start gap-2 bg-slate-50 p-3 rounded-xl border border-slate-100">
-                        <svg class="w-4 h-4 text-blue-500 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                        <span class="text-xs text-slate-600 font-medium line-clamp-1">{{ issue.location_address }}</span>
+                    <div class="mt-auto mb-6 flex items-center gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-100">
+                        <div class="w-8 h-8 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center shrink-0">
+                            <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                        </div>
+                        <span class="text-[10px] text-slate-600 font-bold uppercase tracking-wider line-clamp-1">{{ issue.location_address }}</span>
                     </div>
                     {% endif %}
 
-                    <div class="flex justify-between items-center pt-6 border-t border-slate-100 mt-auto">
-                        <div class="flex items-center">
-                            <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-[10px] mr-2">
-                                {{ issue.user.username|first|upper }}
-                            </div>
-                            <span class="text-xs font-bold text-slate-700">{{ issue.user.username }}</span>
-                        </div>
-                        <a href="{% url 'issue_detail' issue.pk %}" class="inline-flex items-center text-xs font-black text-blue-600 hover:text-blue-800 uppercase tracking-widest group/link transition-all">
-                            Details
-                            <svg class="w-4 h-4 ml-1 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                    <div class="pt-6 border-t border-slate-100 mt-auto flex justify-end">
+                        <a href="{% url 'issue_detail' issue.pk %}" class="inline-flex items-center text-[10px] font-black text-slate-900 hover:text-blue-600 uppercase tracking-[0.2em] group/link transition-all">
+                            View Report
+                            <svg class="w-4 h-4 ml-2 transform group-hover/link:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                         </a>
                     </div>
                 </div>
             </div>
             {% empty %}
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-32 bg-white rounded-[3rem] border border-slate-100 shadow-sm" data-aos="zoom-in">
-                <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <svg class="h-12 w-12 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-32 bg-white rounded-[3rem] border border-slate-100 shadow-xl shadow-slate-200/50" data-aos="zoom-in">
+                <div class="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-8">
+                    <svg class="h-10 w-10 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                 </div>
-                <h3 class="text-2xl font-bold text-slate-900 mb-2">No Reports Found</h3>
-                <p class="text-slate-500 mb-8 max-w-sm mx-auto">Try adjusting your filters or be the first one to report an issue in your area.</p>
-                <a href="{% url 'report_issue' %}" class="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-bold transition shadow-xl shadow-blue-600/20 active:scale-95">
+                <h3 class="text-2xl font-black text-slate-900 mb-2 uppercase tracking-tighter">No Reports Found</h3>
+                <p class="text-slate-500 mb-10 max-w-sm mx-auto font-medium">Try adjusting your filters or be the first one to report an issue.</p>
+                <a href="{% url 'report_issue' %}" class="inline-flex items-center px-10 py-4 bg-slate-900 hover:bg-black text-white rounded-2xl font-black text-xs uppercase tracking-widest transition shadow-2xl active:scale-95">
                     Start Reporting
                 </a>
             </div>
@@ -139,4 +145,5 @@
     </div>
 </div>
 {% endblock %}
+
 

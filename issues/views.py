@@ -1,10 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 from django.http import JsonResponse
-from .models import Issue
-from .forms import IssueForm
+from .models import Issue, UserProfile
+from .forms import IssueForm, UserRegistrationForm
 
 def home(request):
     recent_issues = Issue.objects.select_related('user').order_by('-created_at')[:6]
@@ -60,13 +59,15 @@ def issue_detail(request, pk):
 
 def register(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save()
+            phone = form.cleaned_data.get('phone_number')
+            UserProfile.objects.create(user=user, phone_number=phone)
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = UserRegistrationForm()
     return render(request, 'registration/register.html', {'form': form})
 
 @login_required
@@ -105,3 +106,5 @@ def official_dashboard(request):
 
 def contact(request):
     return render(request, 'issues/contact.html')
+def about(request):
+    return render(request, 'issues/about.html')
