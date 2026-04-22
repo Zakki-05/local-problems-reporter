@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.contrib.auth import login
 from django.http import JsonResponse
 from .models import Issue, UserProfile
@@ -90,6 +91,7 @@ def official_dashboard(request):
             return redirect('official_dashboard')
             
     issues = Issue.objects.select_related('user').order_by('-created_at')
+    registered_users = User.objects.all().order_by('username')
     
     # Matching bilingual strings based on 'in' functionality
     pending_count = sum(1 for i in issues if 'Pending' in i.status)
@@ -98,6 +100,7 @@ def official_dashboard(request):
     
     context = {
         'issues': issues,
+        'registered_users': registered_users,
         'pending_count': pending_count,
         'progress_count': progress_count,
         'resolved_count': resolved_count
