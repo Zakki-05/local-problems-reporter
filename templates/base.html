@@ -96,7 +96,7 @@
                     {% if user.is_staff %}
                     <a href="{% url 'official_dashboard' %}"
                         class="bg-blue-100 text-blue-800 px-5 py-2 rounded-full font-medium transition shadow-sm hover:shadow-md transform hover:-translate-y-0.5 whitespace-nowrap">Official
-                        Panel / அதிகாரி தளம்</a>
+                        Panel</a>
                     {% endif %}
                     <form method="post" action="{% url 'logout' %}" class="inline">
                         {% csrf_token %}
@@ -180,7 +180,7 @@
             {% if user.is_staff %}
             <a href="{% url 'official_dashboard' %}"
                 class="py-3 px-4 rounded-xl text-blue-800 font-bold bg-blue-50 hover:bg-blue-100 transition flex justify-between items-center">
-                Official Panel <span class="text-xs text-blue-400 text-right">அதிகாரி தளம்</span>
+                Official Panel
             </a>
             {% endif %}
 
