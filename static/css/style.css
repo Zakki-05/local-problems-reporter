@@ -9,14 +9,29 @@ body {
 
 /* Modern Glassmorphism Utilities */
 .glass {
-    background: #f0f9ff; /* Solid light blue for a professional Gov look */
-    border-bottom: 2px solid #e0f2fe;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.glass-dark {
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-light {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
 }
 
 /* Mobile Toggle Visibility Fix */
 #mobile-menu-btn {
-    display: flex !important;
+    display: flex;
     align-items: center;
     justify-content: center;
     z-index: 100 !important;
@@ -29,7 +44,7 @@ body {
     background: rgba(59, 130, 246, 0.2);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
     #mobile-menu-btn {
         display: none !important;
     }
@@ -42,16 +57,19 @@ body {
     body {
         font-size: 14px;
     }
+
     .hero-buttons {
         gap: 0.5rem;
         padding-top: 1rem;
         padding-bottom: 1rem;
     }
+
     .hero-buttons a {
         width: 100%;
         padding: 0.75rem 1rem !important;
         font-size: 1rem !important;
     }
+
     /* Reduce glass effect slightly for better mobile rendering speeds */
     .glass {
         backdrop-filter: blur(8px);
@@ -60,19 +78,17 @@ body {
 }
 
 /* Tablets and Large Smartphones (481px to 768px) */
-@media screen and (min-width: 481px) and (max-width: 768px) {
-}
+@media screen and (min-width: 481px) and (max-width: 768px) {}
 
 /* Small Laptops and iPads Landscape (769px to 1024px) */
-@media screen and (min-width: 769px) and (max-width: 1024px) {
-}
+@media screen and (min-width: 769px) and (max-width: 1024px) {}
 
 /* High-resolution Desktops and Ultra-Wides (1025px and Up) */
 @media screen and (min-width: 1025px) {
     .glass {
         padding: 0 2rem;
     }
-    
+
     /* Elegant hover states scaling specifically for mouse environments */
     .issue-card:hover {
         transform: translateY(-5px);
@@ -122,9 +138,21 @@ body {
 }
 
 @keyframes pulse-glow {
-    0% { transform: scale(1); opacity: 0.8; }
-    50% { transform: scale(1.05); opacity: 1; text-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
-    100% { transform: scale(1); opacity: 0.8; }
+    0% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: 1;
+        text-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0.8;
+    }
 }
 
 .mobile-link:active {
@@ -132,7 +160,8 @@ body {
 }
 
 /* Ensure map containers always remain perfectly bounded */
-#map, #mini-map {
+#map,
+#mini-map {
     width: 100%;
     max-width: 100%;
     overflow: hidden;

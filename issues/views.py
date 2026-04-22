@@ -103,3 +103,5 @@ def official_dashboard(request):
     }
     return render(request, 'issues/official_dashboard.html', context)
 
+def contact(request):
+    return render(request, 'issues/contact.html')

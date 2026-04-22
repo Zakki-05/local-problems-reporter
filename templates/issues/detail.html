@@ -1,90 +1,154 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="py-12 bg-slate-50 min-h-screen">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="py-6 md:py-12 bg-slate-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <a href="javascript:history.back()" class="text-blue-600 hover:text-blue-800 font-medium inline-flex items-center mb-6 transition">
-            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Back
-        </a>
+        <!-- Navigation Back -->
+        <div class="mb-6">
+            <a href="javascript:history.back()" class="inline-flex items-center text-slate-500 font-bold transition-all">
+                <div class="w-8 h-8 rounded-full bg-white shadow-sm border border-slate-200 flex items-center justify-center mr-3">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                </div>
+                <span class="text-sm md:text-base tracking-tight">Return to Issues</span>
+            </a>
+        </div>
 
-        <div class="bg-white rounded-3xl shadow-xl overflow-hidden glass border border-white">
-            <div class="md:flex">
-                <!-- Image Section -->
-                <div class="md:w-1/2 relative bg-slate-100 flex items-center justify-center min-h-[400px] md:min-h-[500px]">
-                    {% if issue.image %}
-                    <div class="absolute inset-0 opacity-20 blur-xl scale-110">
-                        <img src="{{ issue.image.url }}" class="w-full h-full object-cover">
-                    </div>
-                    <img src="{{ issue.image.url }}" alt="{{ issue.title }}" class="relative z-10 w-full h-auto max-h-[600px] object-contain shadow-2xl md:rounded-lg">
-                    {% else %}
-                    <div class="w-full h-full flex flex-col items-center justify-center text-slate-400 py-20">
-                        <svg class="w-16 h-16 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        <span>No image provided</span>
-                    </div>
-                    {% endif %}
-                    
-                    <div class="absolute top-4 left-4 z-20">
-                        {% if 'Pending' in issue.status %}
-                            <span class="px-4 py-1.5 bg-red-600 text-white rounded-full text-sm font-bold shadow-xl">Pending (நிலுவையில்)</span>
-                        {% elif 'In Progress' in issue.status %}
-                            <span class="px-4 py-1.5 bg-yellow-500 text-white rounded-full text-sm font-bold shadow-xl">In Progress (செயல்பாட்டில்)</span>
+        <!-- Main Detail Card -->
+        <div class="bg-white rounded-[1.5rem] md:rounded-[2.5rem] shadow-xl shadow-slate-200/50 overflow-hidden border border-white relative">
+            <div class="lg:flex">
+                
+                <!-- LEFT: Visual Content (Image) -->
+                <div class="lg:w-[50%] relative min-h-[300px] md:min-h-[500px]">
+                    <div class="absolute inset-0 bg-slate-900">
+                        {% if issue.image %}
+                        <img src="{{ issue.image.url }}" class="w-full h-full object-cover opacity-90">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent"></div>
                         {% else %}
-                            <span class="px-4 py-1.5 bg-green-600 text-white rounded-full text-sm font-bold shadow-xl">Resolved (தீர்வு)</span>
+                        <div class="w-full h-full flex flex-col items-center justify-center text-slate-400 bg-slate-100">
+                            <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4">
+                                <svg class="w-8 h-8 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                            </div>
+                            <span class="font-black uppercase tracking-[0.2em] text-[10px]">No Reference Image</span>
+                        </div>
                         {% endif %}
+                    </div>
+
+                    <!-- Status Floating Badge -->
+                    <div class="absolute top-6 left-6 md:top-8 md:left-8 z-20">
+                        {% if 'Pending' in issue.status %}
+                            <div class="glass-dark px-5 py-2 rounded-full flex items-center shadow-2xl">
+                                <span class="w-2 h-2 rounded-full bg-red-500 mr-3 shadow-[0_0_10px_rgba(239,68,68,1)]"></span>
+                                <span class="text-white font-black text-[10px] md:text-xs tracking-widest uppercase">Pending / நிலுவையில்</span>
+                            </div>
+                        {% elif 'In Progress' in issue.status %}
+                            <div class="glass-dark px-5 py-2 rounded-full flex items-center shadow-2xl">
+                                <span class="w-2 h-2 rounded-full bg-yellow-400 mr-3 shadow-[0_0_10px_rgba(234,179,8,1)]"></span>
+                                <span class="text-white font-black text-[10px] md:text-xs tracking-widest uppercase">In Progress / செயல்பாட்டில்</span>
+                            </div>
+                        {% else %}
+                            <div class="glass-dark px-5 py-2 rounded-full flex items-center shadow-2xl">
+                                <span class="w-2 h-2 rounded-full bg-green-400 mr-3 shadow-[0_0_10px_rgba(34,197,94,1)]"></span>
+                                <span class="text-white font-black text-[10px] md:text-xs tracking-widest uppercase">Resolved / தீர்வு</span>
+                            </div>
+                        {% endif %}
+                    </div>
+
+                    <!-- Mobile Title Overlay -->
+                    <div class="absolute bottom-6 left-6 right-6 lg:hidden">
+                         <div class="glass-dark p-5 rounded-xl border border-white/10 shadow-2xl">
+                            <div class="text-blue-300 text-[10px] font-black uppercase tracking-[0.2em] mb-2">{{ issue.category }}</div>
+                            <h1 class="text-xl font-black text-white leading-tight">{{ issue.title }}</h1>
+                         </div>
                     </div>
                 </div>
 
-                <!-- Info Section -->
-                <div class="md:w-1/2 p-8 md:p-12 flex flex-col detail-info bg-white">
-                    <div class="flex items-center gap-2 mb-2">
-                        <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                        <div class="uppercase tracking-widest text-xs text-blue-600 font-black">{{ issue.category }}</div>
+                <!-- RIGHT: Issue Details -->
+                <div class="lg:w-[50%] p-6 md:p-10 lg:p-14 flex flex-col bg-white">
+                    <!-- Category & Title (Desktop Only) -->
+                    <div class="hidden lg:block mb-8 md:mb-10">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="px-3 py-1 bg-blue-600 text-white text-[9px] font-black uppercase tracking-[0.2em] rounded-md shadow-lg shadow-blue-600/20">{{ issue.category }}</span>
+                            <div class="h-px flex-grow bg-slate-100"></div>
+                        </div>
+                        <h1 class="text-3xl xl:text-4xl font-black text-slate-900 leading-tight tracking-tight">
+                            {{ issue.title }}
+                        </h1>
                     </div>
-                    <h1 class="text-3xl md:text-5xl font-black text-slate-900 mb-6 leading-tight">{{ issue.title }}</h1>
-                    
-                    <div class="flex flex-wrap items-center text-sm text-slate-500 mb-8 gap-y-2">
-                        <div class="flex items-center mr-6">
-                            <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold mr-2 text-xs">
+
+                    <!-- User Meta -->
+                    <div class="flex flex-wrap items-center justify-between gap-6 p-6 rounded-3xl bg-slate-50 border border-slate-100 mb-12">
+                        <div class="flex items-center">
+                            <div class="w-14 h-14 rounded-2xl bg-white text-blue-600 flex items-center justify-center font-black text-2xl shadow-sm border border-slate-200 mr-4">
                                 {{ issue.user.username|first|upper }}
                             </div>
-                            <span class="font-bold text-slate-700">{{ issue.user.username }}</span>
+                            <div>
+                                <div class="text-slate-900 font-black text-lg leading-none mb-1">{{ issue.user.username }}</div>
+                                <div class="text-slate-500 text-[10px] font-black uppercase tracking-[0.2em]">Submitted By</div>
+                            </div>
                         </div>
-                        
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mr-1.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                            <span>{{ issue.created_at|date:"F d, Y" }}</span>
+                        <div class="text-right">
+                            <div class="text-slate-900 font-black text-sm mb-1">{{ issue.created_at|date:"F d, Y" }}</div>
+                            <div class="text-slate-400 text-[10px] font-black uppercase tracking-[0.2em]">Report Date</div>
                         </div>
                     </div>
-                    
-                    <div class="prose prose-slate max-w-none mb-10">
-                        <p class="text-slate-600 text-lg leading-relaxed italic">
-                            "{{ issue.description }}"
+
+                    <!-- Description -->
+                    <div class="relative mb-12">
+                        <div class="absolute -top-6 -left-2 text-7xl text-blue-50 font-serif leading-none select-none">“</div>
+                        <p class="text-slate-600 text-xl md:text-2xl leading-relaxed font-medium relative z-10 italic">
+                            {{ issue.description }}
                         </p>
                     </div>
 
-                    <!-- Location Display -->
-                    <div class="mt-auto space-y-6">
+                    <!-- Location Section -->
+                    <div class="mt-auto space-y-8">
                         {% if issue.location_address %}
-                        <div class="bg-blue-50/50 p-4 rounded-2xl border border-blue-100/50">
-                            <h3 class="font-bold text-blue-900 text-sm mb-1 flex items-center">
-                                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
-                                Manual Address / முகவரி
-                            </h3>
-                            <p class="text-slate-700 font-medium">{{ issue.location_address }}</p>
+                        <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-24 h-24 bg-blue-600/5 rounded-full -mr-12 -mt-12"></div>
+                            <div class="flex items-start relative z-10">
+                                <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center shadow-lg shadow-blue-600/20 mr-4 shrink-0">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path></svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-black text-slate-400 text-[10px] uppercase tracking-[0.2em] mb-2">
+                                        Manual Address / முகவரி
+                                    </h3>
+                                    <p class="text-slate-800 font-bold text-lg leading-snug">{{ issue.location_address }}</p>
+                                </div>
+                            </div>
                         </div>
                         {% endif %}
 
-                        <div>
-                            <h3 class="font-bold text-slate-800 mb-3 flex items-center text-sm uppercase tracking-wider">
-                                <svg class="w-4 h-4 mr-2 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path></svg>
-                                Interactive Map
-                            </h3>
-                            <div id="mini-map" class="w-full h-56 rounded-2xl border border-slate-200 shadow-sm z-0 relative overflow-hidden"></div>
+                        <div class="relative">
+                            <div class="flex items-center justify-between mb-4">
+                                <h3 class="font-black text-slate-900 text-xs uppercase tracking-widest flex items-center">
+                                    <span class="w-2 h-2 rounded-full bg-blue-600 mr-2"></span>
+                                    Interactive Map
+                                </h3>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Leaflet Interactive</span>
+                            </div>
+                            <div id="mini-map" class="w-full h-64 rounded-[2.5rem] border-8 border-slate-50 shadow-inner z-0 relative overflow-hidden ring-1 ring-slate-200"></div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <!-- Footer Note -->
+        <div class="mt-16 text-center border-t border-slate-200 pt-10">
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12">
+                <div class="flex items-center text-slate-400 text-xs font-bold uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                    Municipal Grievance Cell
+                </div>
+                <div class="flex items-center text-slate-400 text-xs font-bold uppercase tracking-widest">
+                    <span class="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2"></span>
+                    Real-time Tracking
+                </div>
+                <a href="{% url 'contact' %}" class="px-6 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest rounded-full transition-transform active:scale-95">
+                    Contact Support
+                </a>
             </div>
         </div>
     </div>
@@ -95,8 +159,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", () => {
-        // GSAP animation removed for performance - fixes javascript crash preventing map rendering.
-
         // Setup Map
         const lat = parseFloat("{{ issue.latitude|default:'0' }}");
         const lng = parseFloat("{{ issue.longitude|default:'0' }}");
@@ -104,11 +166,14 @@
         
         if(lat !== 0 && lng !== 0) {
             const map = L.map('mini-map', {
-                zoomControl: false,
+                zoomControl: true,
                 scrollWheelZoom: false
-            }).setView([lat, lng], 15);
+            }).setView([lat, lng], 16);
             
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            // Premium Map Style (Optional: Use CartoDB Positron for cleaner look)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
 
             const getMarkerColor = (status) => {
                 if (status.includes('Pending')) return '#ef4444'; 
@@ -116,9 +181,16 @@
                 return '#22c55e'; 
             };
 
+            const markerColor = getMarkerColor(status);
+
             const icon = L.divIcon({
                 className: 'custom-div-icon',
-                html: `<div style="background-color:${getMarkerColor(status)}; width:24px; height:24px; border-radius:50%; border:3px solid white; box-shadow: 0 0 15px rgba(0,0,0,0.4);"></div>`,
+                html: `
+                    <div class="relative flex items-center justify-center">
+                        <div class="absolute w-12 h-12 bg-[${markerColor}] opacity-20 rounded-full animate-ping"></div>
+                        <div style="background-color:${markerColor}; width:24px; height:24px; border-radius:50%; border:4px solid white; box-shadow: 0 4px 15px rgba(0,0,0,0.3); z-index: 10;"></div>
+                    </div>
+                `,
                 iconSize: [24, 24],
                 iconAnchor: [12, 12]
             });

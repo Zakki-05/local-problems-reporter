@@ -16,9 +16,7 @@
     <meta property="og:image" content="{% static 'images/home-image.png' %}">
     
     <!-- Tailwind CSS -->
-    <!-- Tailwind CSS -->
     {% if debug or "127.0.0.1" in request.get_host or "localhost" in request.get_host %}
-    <!-- Use Play CDN for faster local development -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -32,7 +30,6 @@
         }
     </script>
     {% else %}
-    <!-- Use Compiled CSS for production (Stops CDN warnings & improves speed) -->
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
     {% endif %}
 
@@ -68,13 +65,13 @@
                         <div class="flex items-center text-xl font-bold text-blue-800 tracking-tight">
                             <img src="{% static 'images/fave-icon.png' %}" alt="PGC Logo"
                                 class="w-10 h-10 mr-2 object-contain">
-                            PGC / குறைதீர் மையம்
+                            PGC <span class="hidden lg:inline">/ குறைதீர் மையம்</span>
                         </div>
                         <span class="text-[10px] uppercase text-blue-600 font-bold ml-8 leading-none">Pernambut
                             Grievance Cell</span>
                     </div>
                 </div>
-                <div class="hidden xl:flex space-x-6 items-center">
+                <div class="hidden lg:flex space-x-6 items-center">
                     <a href="{% url 'home' %}"
                         class="font-medium transition {% if request.resolver_match.url_name == 'home' %}text-blue-600 font-bold border-b-2 border-blue-600{% else %}text-slate-600 hover:text-blue-600{% endif %}">Home</a>
                     <a href="{% url 'map_view' %}"
@@ -106,16 +103,14 @@
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="xl:hidden flex items-center">
+                <div class="lg:hidden flex items-center">
                     <button id="mobile-menu-btn"
-                        class="relative p-2 text-blue-900 focus:outline-none z-50 group hover:bg-blue-50 rounded-lg transition-colors">
-                        <div class="w-6 flex flex-col items-end gap-1.5 transition-all">
-                            <span class="w-full h-[2px] bg-current transform transition duration-300 origin-right"
-                                id="bar1"></span>
-                            <span class="w-full h-[2px] bg-current transition duration-300" id="bar2"></span>
-                            <span
-                                class="w-3/4 h-[2px] bg-current transform transition duration-300 origin-right group-hover:w-full"
-                                id="bar3"></span>
+                        class="flex flex-col justify-center items-center w-12 h-12 bg-blue-100/80 text-blue-900 rounded-2xl focus:outline-none z-50 transition-all hover:bg-blue-200"
+                        style="display: flex !important;">
+                        <div class="w-6 h-4 flex flex-col justify-between items-center">
+                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left" id="bar1"></span>
+                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300" id="bar2"></span>
+                            <span class="w-full h-[2.5px] bg-blue-900 rounded-full transition-all duration-300 origin-left" id="bar3"></span>
                         </div>
                     </button>
                 </div>
@@ -217,8 +212,8 @@
                             class="w-8 h-8 mr-2 object-contain">
                         Pernambut Municipal Council
                     </span>
-                    <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) / பேரணாம்பட்டு
-                            குறைதீர் மையம்:</strong> Official Smart Grievance Reporting System for Pernambut, Tamil
+                    <p class="mt-2 text-sm text-slate-400"><strong>Pernambut Grievance Cell (PGC) <span class="hidden sm:inline">/ பேரணாம்பட்டு
+                            குறைதீர் மையம்</span>:</strong> Official Smart Grievance Reporting System for Pernambut, Tamil
                         Nadu.</p>
                 </div>
                 <div class="flex space-x-6 mt-4 md:mt-0 font-medium tracking-wide">
