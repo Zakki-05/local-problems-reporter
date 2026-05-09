@@ -93,10 +93,10 @@ def official_dashboard(request):
     issues = Issue.objects.select_related('user').order_by('-created_at')
     registered_users = User.objects.all().order_by('username')
     
-    # Matching bilingual strings based on 'in' functionality
-    pending_count = sum(1 for i in issues if 'Pending' in i.status)
-    progress_count = sum(1 for i in issues if 'In Progress' in i.status)
-    resolved_count = sum(1 for i in issues if 'Resolved' in i.status)
+    # Counting based on matching keys or bilingual strings
+    pending_count = sum(1 for i in issues if i.status and 'Pending' in i.status)
+    progress_count = sum(1 for i in issues if i.status and 'In Progress' in i.status)
+    resolved_count = sum(1 for i in issues if i.status and 'Resolved' in i.status)
     
     context = {
         'issues': issues,
